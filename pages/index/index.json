@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "SearchBar": "/templates/searchBox/index"
+  },
+  "navigationBarTitleText": "活动管理"
+}

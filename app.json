@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/auth/auth",
+    "pages/join/join",
+    "pages/publication/publication",
+    "pages/pageopen/pageopen",
+    "pages/index/index",
+    "pages/user/user",
+    "pages/logs/logs",
+    "templates/searchBox/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "项目日志管理系统",
+    "navigationBarTextStyle": "black"
+  },
+  "debug": false,
+  "sitemapLocation": "sitemap.json"
+}

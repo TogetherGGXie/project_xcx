@@ -1,0 +1,100 @@
+<view class='header'>
+  <text class='title'>日志管理系统</text>
+  <image src="{{userInfo.avatarUrl}}"></image>
+</view>
+<!--特别推荐轮播图  -->
+
+<import src="/pages/template/indexPopup.wxml" />
+<template is="userPannel" data="{{isShowUserPannel}}" />
+<view class='add_symbol' bindtap='showUserPannel'></view>
+<view class='projectbox'>
+<!-- 搜索框 -->
+<view >
+    <SearchBar id="SearchBar" addflag="{{addflag}}" addimg="{{addimg}}" bind:addhandle="addhandle" searchstr="{{searchstr}}" bind:searchList="searchList" bind:endsearchList="endsearchList" bind:cancelsearch="cancelsearch" bind:activity_clear="activity_clear">
+    </SearchBar>
+</view>
+<scroll-view style="background: white">
+  <!--第一部分  -->
+  <view class='project'>
+      <image class='headimage' src='http://img.zcool.cn/community/01ca005b02587ba801218cf4fe698a.gif'></image>
+      <view class='projecttext'>
+        <text class='biaoti'>膨胀的小人物</text>
+        <text class='jianjie'>用文字的力量，改变潮水的方向</text>
+        <text class='field'>电影 10W+参与</text>
+      </view>
+<navigator url='/pages/pageopen/pageopen'>
+      <view class='openpush'></view>
+    </navigator>
+  </view>
+
+  <!--第二部分  -->
+
+  <view class='project'>
+    
+    <image class='headimage' src='http://img.zcool.cn/community/0130175b0259daa801209a85281b8a.gif'></image>
+    <view class='projecttext'>
+      <text class='biaoti'>日常装逼小分队</text>
+      <text class='jianjie'>复眼的世界，在平行世界的寻找人的另一个面</text>
+      <text class='field'>亚文化 1W+参与</text>
+    </view>
+<navigator url='/pages/pageopen/pageopen'>
+    <view class='openpush'></view>
+     </navigator>
+  </view>
+
+  <!--第三部分  -->
+  <view class='project'>
+  
+    <image class='headimage' src='http://img.zcool.cn/community/0110005b025a18a801218cf420ede5.gif'></image>
+    <view class='projecttext'>
+      <text class='biaoti'>差评日报</text>
+      <text class='jianjie'>这个世界上终究会有好事发生</text>
+      <text class='field'>电商 1W+参与</text>
+    </view>
+<navigator url='/pages/pageopen/pageopen'>
+    <view class='openpush'></view>
+    </navigator>
+  </view>
+
+  <!--第四部分  -->
+
+  <view class='project'>
+  
+    <image class='headimage' src='http://img.zcool.cn/community/0108625b025a04a801218cf4270881.gif'></image>
+    <view class='projecttext'>
+      <text class='biaoti'>刘二三</text>
+      <text class='jianjie'>每个人都有自己的故事</text>
+      <text class='field'>情感 1W+参与</text>
+    </view>
+<navigator url='/pages/pageopen/pageopen'>
+    <view class='openpush'></view>
+    </navigator>
+  </view>
+    <view>
+  <view class="projects" wx:for="{{projectList}}" wx:key="index" bindtap="showDetail" id="{{item.id}}">
+    <view class="project">
+      <image class='headimage' src="{{item.img}}"></image>
+      <view class='projecttext'>
+        <text class='biaoti'>{{item.projectName}}</text>
+        <text class='jianjie'>负责人：{{item.leaderName}}</text>
+        <text class='field'>{{item.startTime}}</text>
+      </view>
+      <navigator url='/pages/pageopen/pageopen'>
+        <view class='openpush'></view>
+      </navigator>
+    </view>
+          <!-- <view class="act-name">
+            {{item.acTitle}}
+          </view>
+          <view class="act-time">
+            {{item.acstartTime}} 至 {{item.acendTime}}
+          </view>  
+        </view> -->
+      </view>
+    </view>
+    </scroll-view>
+  
+
+
+
+</view>
