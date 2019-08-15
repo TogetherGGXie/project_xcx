@@ -13,6 +13,7 @@ Page({
     isShowUserPannel:false, //是否显示个人中心面板
     domain: '',
     searchText: '',
+    searchstr: '',
     pageNumber: 1,
     pageSize : 10,
     projectList: []
@@ -72,24 +73,28 @@ Page({
   searchList(ev) {
     let e = ev.detail;
     this.setData({
-      searchText: e.detail.value
+      searchstr: e.detail.value
     });
   },
   //搜索回调
   endsearchList(e) {
-    console.log('查询数据')
+    this.setData({
+      searchText: this.data.searchstr,
+      pageNumber: 1
+    });
+    console.log('查询数据'+this.data.searchText+this.data.pageNumber)
   },
   // 取消搜索
   cancelsearch() {
     this.setData({
-      searchText: ''
+      searchstr: ''
     })
   },
   //清空搜索框
   activity_clear(e) {
 
     this.setData({
-      searchText: ''
+      searchstr: ''
     })
   },
 
