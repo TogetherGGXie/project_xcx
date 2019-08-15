@@ -5,10 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    status: ['一般优秀小橙V', '红V大佬', '蓝V小编'],
-    sIndex:0,
-    fileds: ['搞笑', '情感', '电影', '科技', '社会', '财经', '娱乐', '汽车', '时尚', '艺术', '游戏', '星座', '设计', '萌宠', '育儿', '美食', '站外', '旅游', '家居'],
-    fIndex: 2,
+    userInfo: '',
 
   },
 
@@ -30,7 +27,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      userInfo: getApp().globalData.userInfo,
+    })
   },
 
   /**

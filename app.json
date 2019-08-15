@@ -1,12 +1,10 @@
 {
   "pages": [
     "pages/auth/auth",
-    "pages/join/join",
     "pages/publication/publication",
     "pages/pageopen/pageopen",
     "pages/index/index",
     "pages/user/user",
-    "pages/logs/logs",
     "templates/searchBox/index"
   ],
   "window": {

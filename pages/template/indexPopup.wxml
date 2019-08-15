@@ -5,12 +5,12 @@
     <!--背景  -->
     <image class='bg' src="/images/bg.png"></image>
     <!--搜索盒模型  -->
-    <view class='seach'>
+    <!-- <view class='seach'> -->
       <!-- 搜索icon -->
-      <image class='sea' src="/images/seach.png"></image>
+      <!-- <image class='sea' src="/images/seach.png"></image> -->
       <!--搜索字色  -->
-      <input class='input' placeholder='搜索' placeholder-class='textcolor'></input>
-    </view>
+      <!-- <input class='input' placeholder='搜索' placeholder-class='textcolor'></input> -->
+    <!-- </view> -->
 
     <!--功能盒模型  -->
     <view class='function'>

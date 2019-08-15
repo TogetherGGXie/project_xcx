@@ -126,14 +126,14 @@ page {
 
 .back {
   font-size: 30rpx;
-  color: #ffd92e;
+  color: #a5a087b4;
   display: block;
   text-align: center;
   line-height: 70rpx;
   width: 130rpx;
   height: 70rpx;
   background-color: rgba(255, 255, 255, 0);
-  border: 3rpx solid #ffd92e;
+  border: 3rpx solid #a5a087b4;
   border-radius: 25rpx;
   position: absolute;
   left: 50%;

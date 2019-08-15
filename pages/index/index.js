@@ -11,19 +11,24 @@ Page({
     interval: 5000,
     duration: 800,
     isShowUserPannel:false, //是否显示个人中心面板
+    isEnd:false,
     domain: '',
     searchText: '',
     searchstr: '',
     pageNumber: 1,
-    pageSize : 10,
-    projectList: []
+    pageSize : 5,
+    projectList: [],
+    pages: 0
   },
   onLoad: function () {
     this.setData({
       userInfo: app.getUserinfo(),
       domain: app.globalData.domain,
       searchText: '',
-      pageNumber: 1
+      pageNumber: 1,
+      searchstr: '',
+      projectList: [],
+      pages: 0
     });
     this.getProjects();
   },
@@ -40,8 +45,11 @@ Page({
       },
       success: res => {
         console.log(res.data)
+        var old = this.data.projectList;
+        var that = this
         this.setData({
-          projectList: res.data.records
+          projectList: old.concat(res.data.records),
+          pages: res.data.pages
         })
         // setData data
       }
@@ -79,10 +87,12 @@ Page({
   //搜索回调
   endsearchList(e) {
     this.setData({
+      projectList:[],
       searchText: this.data.searchstr,
       pageNumber: 1
     });
     console.log('查询数据'+this.data.searchText+this.data.pageNumber)
+    this.getProjects();
   },
   // 取消搜索
   cancelsearch() {
@@ -97,7 +107,45 @@ Page({
       searchstr: ''
     })
   },
+  onPullDownRefresh: function () {
+    wx.showToast({
+      title: '正在加载中',
+      icon: 'loading',
+      duration: 200
+    })
+    this.setData({
+      isEnd:false
+    })
+    this.onLoad();
+    wx.stopPullDownRefresh();
+  },
 
+
+
+  /**
+     * 页面上拉触底事件的处理函数
+     */
+  onReachBottom: function () {
+    if (this.data.pages <= this.data.pageNumber) {
+      this.setData({
+        isEnd: true
+      })
+    } else {
+      this.setData({
+          pageNumber: this.data.pageNumber+1
+      })
+      var that = this;
+      // 显示加载图标
+      wx.showToast({
+        title: '正在加载中',
+        icon: 'loading',
+        duration: 200
+      })
+      this.getProjects();
+    }
+
+  },
+  
 
 })
 
