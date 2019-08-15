@@ -1,25 +1,19 @@
 // pages/pagepublication/pagepublication.js
-const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    time:"",
     startTime:"",
-    endTime:"",
-    projectList:[],
-    pIndex:0,
-    projectId: '',
-    projectName:'',
+    endTime:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getSelection();
+  
   },
 
   /**
@@ -33,7 +27,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+  
   },
 
   /**
@@ -69,42 +63,6 @@ Page({
    */
   onShareAppMessage: function () {
   
-  },
-   /**
-   * 设置日志时间
-   */
-  getSelection: function() {
-    wx.request({
-      url: app.globalData.domain +'/project/getProjectNames',
-      data: {
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        console.log(res.data)
-        this.setData({
-          projectList: res.data
-        })
-      // setData data
-      }
-    })
-    
-  
-  },
-  pickProject: function (e) {
-    console.log("改之前",this.data.projectId, this.data.projectName),
-    this.setData({
-      pIndex: e.detail.value,
-      projectId: this.data.projectList[e.detail.value].projectId,
-      projectName: this.data.projectList[e.detail.value].projectName,
-    })
-    console.log(this.data.pIndex,this.data.projectId, this.data.projectName)
-  },
-  setTime: function (e) {
-    this.setData({
-      time: e.detail.value
-    })
   },
    /**
    * 设置开始时间

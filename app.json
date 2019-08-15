@@ -1,7 +1,9 @@
 {
   "pages": [
+        "pages/publication/publication",
+    "pages/projectpublication/projectpublication",
     "pages/auth/auth",
-    "pages/publication/publication",
+
     "pages/pageopen/pageopen",
     "pages/index/index",
     "pages/user/user",

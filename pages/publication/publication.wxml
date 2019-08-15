@@ -8,24 +8,19 @@
 </view>
 
 <view class='heading'>
-  <input  placeholder-class='textcolor' class='title1' placeholder='标题（15个字内）'></input>
-  <image class='line1'></image>
-  <!--简介  -->
-  <input placeholder-class='textcolor' class='title1' placeholder='简介（简单描述一下内容…30字内）'></input>
-  <image class='line1'></image>
 
-  <!--活动时间  -->
-  <text  class='title1'>活动时间</text>
-  <picker class='title1' mode="date" start="2018-05-20" bindchange="setStartTime">
-    开始时间 {{startTime}}
-  </picker>
-  <picker class='title1' mode="date" start="2018-05-20" bindchange="setEndTime">
-    结束时间 {{endTime}}
+  <picker class='title1' mode="date" start="" bindchange="setTime">
+    选择日期 {{time}}
   </picker>
   <image class='line1'></image>
-
-  <!--活动介绍  -->
-  <textarea placeholder-class='textcolor' class='title1' placeholder='活动内容（描述活动的部分，请随便发挥…）'></textarea>
+  <picker bindchange="pickProject" mode="selector" value="pIndex" range="{{projectList}}" range-key="{{'projectName'}}"> 
+      <view class="title1">选择项目 {{projectName}}</view> 
+    </picker> 
+  <image class='line1'></image>
+  <!--生产情况记录  -->
+  <textarea placeholder-class='textcolor' class='title1' placeholder='生产情况记录'></textarea>
+  <image class='line1'></image>
+<button type="default" size="mini" bindtap="chooseImage">添加图片</button>
 </view>
 
 

@@ -122,3 +122,18 @@
   color: #000;
   float: right;
 }
+
+/*发布项目  */
+
+.newprojectcenter {
+  margin-top: 60rpx;
+  width: 230rpx;
+  height: 60rpx;
+  background-color: rgba(241, 234, 234, 0.2);
+  border-radius: 15rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: #000;
+  float: left;
+}
