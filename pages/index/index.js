@@ -11,6 +11,7 @@ Page({
     interval: 5000,
     duration: 800,
     isShowUserPannel:false, //是否显示个人中心面板
+    domain: '',
     searchText: '',
     pageNumber: 1,
     pageSize : 10,
@@ -18,7 +19,10 @@ Page({
   },
   onLoad: function () {
     this.setData({
-      userInfo: app.getUserinfo()
+      userInfo: app.getUserinfo(),
+      domain: app.globalData.domain,
+      searchText: '',
+      pageNumber: 1
     });
     this.getProjects();
   },

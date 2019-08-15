@@ -2,5 +2,5 @@
   "usingComponents": {
     "SearchBar": "/templates/searchBox/index"
   },
-  "navigationBarTitleText": "活动管理"
+  "navigationBarTitleText": "日志管理系统"
 }

@@ -73,7 +73,7 @@
     <view>
   <view class="projects" wx:for="{{projectList}}" wx:key="index" bindtap="showDetail" id="{{item.id}}">
     <view class="project">
-      <image class='headimage' src="{{item.img}}"></image>
+      <image class='headimage' src="{{domain}}/{{item.img}}"></image>
       <view class='projecttext'>
         <text class='biaoti'>{{item.projectName}}</text>
         <text class='jianjie'>负责人：{{item.leaderName}}</text>
