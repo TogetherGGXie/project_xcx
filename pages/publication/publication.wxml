@@ -36,9 +36,8 @@
       <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
     </view>
   </block>
-</view>
-
-    <button type="default" size="mini" bindtap="chooseimg" 
+  </view>
+    <button class="btn" type="default" size="mini" bindtap="chooseimg" 
       wx:if="{{tempFilePaths.length < 3}}"
       >添加图片</button>
 </view>

@@ -1,4 +1,3 @@
-/* pages/pagepublication/pagepublication.wxss */
 
 /*导航 问题：居中问题 */
 
@@ -11,7 +10,7 @@
 /*返回图片  */
 
 .return {
-  color: #ffd92e;
+  color: #000;
   font-size: 30rpx;
   float: left;
   padding-left: 40rpx;
@@ -21,7 +20,7 @@
 /*发布消息按钮  */
 
 .publication {
-  color: #ffd92e;
+  color: #000;
   font-size: 30rpx;
   float: right;
   padding-right: 40rpx;
@@ -44,6 +43,22 @@
   padding-top: 20rpx;
   padding-bottom: 15rpx;
 }
+.title {
+  font-size: 30rpx;
+  color: #302F2F;
+  padding-left: 40rpx;
+  display: block;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
+}
+.leader {
+  font-size: 30rpx;
+  color: #302F2F;
+  padding-left: 40rpx;
+  display: block;
+  padding-top: 20rpx;
+  padding-bottom: 5rpx;
+}
 
 .textcolor{
   color: #e1e1e1;
@@ -58,14 +73,6 @@
   margin-top: 12rpx;
 }
 
-/*底部盒子  */
-
-.bottom {
-  position: fixed;
-  bottom: 10px;
-  
-}
-
 /*底部分割线  */
 
 .bottomline {
@@ -75,12 +82,37 @@
   display: block;
 }
 
-/*拍照图标  */
+.question-images-area {
+  padding: 40rpx 0;
+}
 
-.photo {
-  width: 55rpx;
-  height: 55rpx;
-  padding-right: 40rpx;
-  padding-top: 8rpx;
-  float: right;
+.question-images-tool {
+  display: flex;
+  align-items: center;
+}
+
+.question-images {
+  display: flex;
+  align-items: center;
+  margin-top: 40rpx;
+}
+
+.q-image-wrap {
+  width: 31%;
+  margin-right: 10rpx;
+}
+
+.q-image {
+  flex: 1;
+  height: 200rpx;
+  width: 100%;
+}
+
+.q-image-remover {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 40rpx;
+  margin-left: 40rpx;
 }

@@ -104,3 +104,8 @@
 .q-image-remover {
   text-align: center;
 }
+
+.btn {
+  padding-left: 40rpx;
+  
+}

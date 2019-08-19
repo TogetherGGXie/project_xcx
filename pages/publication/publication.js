@@ -174,14 +174,29 @@ Page({
   //     post();
   //   }
   // },
-  addLog: function () {
-    var isValid = this.isValid();
+  async addLog() {
+    let isValid = this.isValid();
+    var tempFilePaths = this.data.tempFilePaths;
+    var pics = this.data.pics;
+    var that = this;
+    var count = 0;
     if(isValid) {
-      var count = this.uploadImg();
-      var isEqual = this.isEqual(count, this.data.tempFilePaths.length);
-      console.log
-      if (isEqual)
+      for (var i = 0; i < tempFilePaths.length; i++) {
+        await this.uploadImg(tempFilePaths[i]).then((res) => {
+          console.log("res="+res)
+          pics = pics + res + " " // 图片地址
+          that.setData({
+            pics: pics
+          })
+          console.log("第"+i+"次调用后pics="+pics)
+          count++
+        })
+      }
+      console.log("上传后"+pics)
+      console.log(count)
+      if (count == tempFilePaths.length){
         this.post();
+      }
       else {
         console.log("count="+count),
           console.log("是否相等="+this.data.tempFilePaths.length)
@@ -210,32 +225,23 @@ Page({
     { console.log("3kong"); flag = false; }
     return flag;
   },
-  uploadImg: function(){
-    var tempFilePaths = this.data.tempFilePaths;
-    var pics = this.data.pics;
-    var that = this;
-    var count = 0;
-    for (var i = 0; i < tempFilePaths.length; i++) {
-      that.data.pics.concat(";");
+  uploadImg: function(filePath){
+    return new Promise((resolve, reject) => {
       wx.uploadFile({
         url: app.globalData.domain + '/upload', //仅为示例，非真实的接口地址
-        filePath: tempFilePaths[i],
+        filePath: filePath,
         name: 'img',
         header: {
           "Content-Type": "multipart/form-data"
         },
         formData: {
-          folder: 'projectLog'
+          folder: 2
         },
         success: function (res) {
           var data = res.data
           if (data != "error") {
             console.log("1上传成功返回"+data);
-            that.setData({
-              pics: that.data.pics.concat(data)
-            })
-            count++;
-            console.log("2"+that.data.pics)
+            resolve(res.data)
           } else {
             wx.showToast({
               title: '上传失败',
@@ -243,16 +249,16 @@ Page({
               duration: 1000//持续的时间
             });
           }
+        },
+        fail: (err) => {
+          reject(err)
         }
       })
-    }
-    console.log("返回前"+count)
-    return count;
+    })
   },
-  isEqual: function(a,b) {
-    return a==b;
-  },
+
   post: function(){
+    console.log("pics" +this.data.pics)
     wx.request({
       url: app.globalData.domain + '/projectLog/addLog',
       method: 'POST',
