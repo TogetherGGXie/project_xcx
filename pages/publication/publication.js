@@ -7,12 +7,14 @@ Page({
    */
   data: {
     time:"",
-    startTime:"",
-    endTime:"",
     projectList:[],
     pIndex:0,
     projectId: '',
     projectName:'',
+    pics: '',
+    index:0,
+    tempFilePaths:[],
+    content:''
   },
 
   /**
@@ -92,42 +94,183 @@ Page({
     
   
   },
+  //搜索框输入时触发
+  inputContent(ev) {
+    let e = ev.detail;
+    this.setData({
+      content: e.value
+    });
+  },
   pickProject: function (e) {
-    console.log("改之前",this.data.projectId, this.data.projectName),
     this.setData({
       pIndex: e.detail.value,
       projectId: this.data.projectList[e.detail.value].projectId,
       projectName: this.data.projectList[e.detail.value].projectName,
     })
-    console.log(this.data.pIndex,this.data.projectId, this.data.projectName)
   },
   setTime: function (e) {
     this.setData({
       time: e.detail.value
     })
   },
-   /**
-   * 设置开始时间
-   */
-  setStartTime: function(e){
-    this.setData({
-      startTime: e.detail.value
-    })
-  },
-   /**
-   * 设置结束时间
-   */
-  setEndTime: function(e){
-    this.setData({
-      endTime: e.detail.value
-    })
-  },
-  //选择文件
-  chooseImage: function(){
+  chooseimg: function () {
+    let _this = this;
+    let len = 0;
+    if (_this.data.tempFilePaths != null) {
+      len = _this.data.tempFilePaths.length;
+    }//获取当前已有的图片
     wx.chooseImage({
-      success: function(res) {
-        console.log(res)
+      count: 3 - len, //最多还能上传的图片数,这里最多可以上传3张
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths
+        let tempFilePathsimg = _this.data.tempFilePaths
+        //获取当前已上传的图片的数组
+        var tempFilePathsimgs = tempFilePathsimg.concat(tempFilePaths)
+        //把当前上传的数组合并到原来的数组中
+        _this.setData({
+          tempFilePaths: tempFilePathsimgs
+        })
+
       },
+
+      fail: function () {
+        wx.showToast({
+          title: '图片上传失败',
+          icon: 'none'
+        })
+        return;
+      }
+    })
+  },
+  removeImage(e) {
+    const idx = e.target.dataset.idx
+    var old = this.data.tempFilePaths
+    old.splice(idx, 1)
+    this.setData({
+      tempFilePaths: old
+    })
+  },
+  handleImagePreview(e) {
+    const idx = e.target.dataset.idx
+    const tempFilePaths = this.data.tempFilePaths
+    wx.previewImage({
+      current: tempFilePaths[idx],  //当前预览的图片
+      urls: tempFilePaths,  //所有要预览的图片
+    })
+  },
+
+  // addLog: function() {
+  //   var count = this.uploadImg();
+  //   var length = this.data.tempFilePaths.length;
+  //   console.log("count="+count),
+  //     console.log("length"+length),
+  //     console.log(length == count)
+  //   var isValid = this.isValid();
+  //   if (isValid && count == length){
+  //     console.log(this.data.pics)
+  //     post();
+  //   }
+  // },
+  addLog: function () {
+    var isValid = this.isValid();
+    if(isValid) {
+      var count = this.uploadImg();
+      var isEqual = this.isEqual(count, this.data.tempFilePaths.length);
+      console.log
+      if (isEqual)
+        this.post();
+      else {
+        console.log("count="+count),
+          console.log("是否相等="+this.data.tempFilePaths.length)
+        wx.showToast({
+          title: '图片上传失败',
+          icon: 'none',
+          duration: 1000//持续的时间
+        });
+      }
+    }else{
+      wx.showToast({
+        title: '请正确填写日志',
+        icon: 'none',
+        duration: 1000//持续的时间
+      });
+    }
+  
+  },
+  isValid: function (){
+    var flag = true;
+    if (this.data.time == null || this.data.time == '')
+      {console.log("1kong");flag = false;}
+    if (this.data.projectId == null || this.data.projectId == '')
+    { console.log("2kong"); flag = false; }
+    if (this.data.content == null || this.data.content == '')
+    { console.log("3kong"); flag = false; }
+    return flag;
+  },
+  uploadImg: function(){
+    var tempFilePaths = this.data.tempFilePaths;
+    var pics = this.data.pics;
+    var that = this;
+    var count = 0;
+    for (var i = 0; i < tempFilePaths.length; i++) {
+      that.data.pics.concat(";");
+      wx.uploadFile({
+        url: app.globalData.domain + '/upload', //仅为示例，非真实的接口地址
+        filePath: tempFilePaths[i],
+        name: 'img',
+        header: {
+          "Content-Type": "multipart/form-data"
+        },
+        formData: {
+          folder: 'projectLog'
+        },
+        success: function (res) {
+          var data = res.data
+          if (data != "error") {
+            console.log("1上传成功返回"+data);
+            that.setData({
+              pics: that.data.pics.concat(data)
+            })
+            count++;
+            console.log("2"+that.data.pics)
+          } else {
+            wx.showToast({
+              title: '上传失败',
+              icon: 'fail',
+              duration: 1000//持续的时间
+            });
+          }
+        }
+      })
+    }
+    console.log("返回前"+count)
+    return count;
+  },
+  isEqual: function(a,b) {
+    return a==b;
+  },
+  post: function(){
+    wx.request({
+      url: app.globalData.domain + '/projectLog/addLog',
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        pics: this.data.pics,
+        date: this.data.time,
+        userId: 1,
+        projectId: this.data.projectId,
+        content: this.data.content
+
+      },
+      success: res => {
+        console.log(res.data)
+        // setData data
+      }
     })
   }
 })

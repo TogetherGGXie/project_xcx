@@ -4,7 +4,7 @@
   <navigator open-type="navigateBack" class="return">返回</navigator>
   <!--  -->
   <!--发布按钮  -->
-  <text class='publication'>发布</text>
+  <text class='publication' bindtap="addLog">发布</text>
 </view>
 
 <view class='heading'>
@@ -18,16 +18,28 @@
     </picker> 
   <image class='line1'></image>
   <!--生产情况记录  -->
-  <textarea placeholder-class='textcolor' class='title1' placeholder='生产情况记录'></textarea>
+  <textarea placeholder-class='textcolor' class='title1' placeholder='生产情况记录' value="{{content}}" bindinput="inputContent"></textarea>
   <image class='line1'></image>
-<button type="default" size="mini" bindtap="chooseImage">添加图片</button>
 </view>
 
-
-<!--底部栏  -->
-<view class='bottom'>
-
-  <image class='bottomline'></image>
-  <image class='photo' src='/images/photo.png' bindtap='chooseImage'></image>
-
+<view class='pic-title'>
+    <view class='title1'>上传照片(不超过3张)</view>
 </view>
+
+<view class='tfright'>
+  <view class="question-images">
+  <block wx:for="{{tempFilePaths}}" >
+    <view class="q-image-wrap">
+      <!-- 图片缩略图  -->
+      <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+      <!-- 移除图片的按钮  -->
+      <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
+    </view>
+  </block>
+</view>
+
+    <button type="default" size="mini" bindtap="chooseimg" 
+      wx:if="{{tempFilePaths.length < 3}}"
+      >添加图片</button>
+</view>
+
