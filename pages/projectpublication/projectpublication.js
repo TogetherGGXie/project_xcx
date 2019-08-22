@@ -199,11 +199,10 @@ Page({
       for (var i = 0; i < tempFilePaths.length; i++) {
         await this.uploadImg(tempFilePaths[i]).then((res) => {
           console.log("res=" + res)
-          pics = pics + res + " " // 图片地址
+          pics = pics + res + (i == tempFilePaths.length - 1 ? "" : " ") // 图片地址
           that.setData({
             pics: pics
           })
-          console.log("第" + i + "次调用后pics=" + pics)
           count++
         })
       }
@@ -280,19 +279,21 @@ Page({
       url: app.globalData.domain + '/project/addProject',
       method: 'POST',
       header: {
+        'Cookie': app.globalData.cookie,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: {
         img: this.data.pics,
         startTime: this.data.startTime,
         endTime: this.data.endTime,
-        leaderId: 1,
         projectName: this.data.projectName,
 
       },
       success: res => {
-        console.log(res.data)
-        // setData data
+        console.log(res.data);
+        wx.redirectTo({
+          url: '../details/details?projectId=' + res.data,
+        })
       }
     })
   }

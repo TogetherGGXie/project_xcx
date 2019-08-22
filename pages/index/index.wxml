@@ -5,7 +5,7 @@
 <!--特别推荐轮播图  -->
 
 <import src="/pages/template/indexPopup.wxml" />
-<template is="userPannel" data="{{isShowUserPannel}}" />
+<template is="userPannel" data="{{isShowUserPannel,authority}}" />
 <view class='add_symbol' bindtap='showUserPannel'></view>
 <view class='projectbox'>
 <!-- 搜索框 -->
@@ -13,36 +13,20 @@
     <SearchBar id="SearchBar" addflag="{{addflag}}" addimg="{{addimg}}" bind:addhandle="addhandle" searchstr="{{searchstr}}" bind:searchList="searchList" bind:endsearchList="endsearchList" bind:cancelsearch="cancelsearch" bind:activity_clear="activity_clear">
     </SearchBar>
 </view>
-<!-- <scroll-view style="background: white"> -->
 
-  <!--第四部分  -->
-
-  <!-- <view class='project'>
-  
-    <image class='headimage' src='http://img.zcool.cn/community/0108625b025a04a801218cf4270881.gif'></image>
-    <view class='projecttext'>
-      <text class='biaoti'>刘二三</text>
-      <text class='jianjie'>每个人都有自己的故事</text>
-      <text class='field'>情感 1W+参与</text>
-    </view>
-    <navigator url='/pages/pageopen/pageopen'>
-      <view class='openpush'></view>
-    </navigator>
-  </view> -->
-
-
-  <view class="projects" wx:for="{{projectList}}" wx:key="index" bindtap="showDetail" id="{{item.id}}">
+  <view class="projects" wx:for="{{projectList}}" wx:key="index" bindtap="showDetail" id="{{item.projectId}}">
     <view class="project">
-      <image class='headimage' src="{{domain}}/{{item.img}}"></image>
+      <image wx:if="{{item.img!=''}}" class='headimage' src="{{domain}}/{{item.img}}" ></image>
+      <image wx:if="{{item.img==''}}" class='headimage' src="../../images/default.jpg" ></image>
       <view class='projecttext'>
         <text class='biaoti'>{{item.projectName}}</text>
-        <text class='jianjie'>负责人：{{item.leaderName}}</text>
-        <text class='field'>{{item.startTime}}</text>
+        <text class='leaderName'>负责人：{{item.leaderName}}</text>
+        <text class='start'>开工日期：{{item.startTime}}</text>
+        <text decode="{{true}}" wx:if="{{item.endTime!=null}}" class='end'>竣工日期: &nbsp;{{item.endTime}}</text>
+        <text decode="{{true}}" wx:elif="{{item.endTime==null}}" class='end'>竣工日期: &nbsp;暂未竣工</text>
       </view>
-      <navigator url='/pages/pageopen/pageopen'>
-        <view class='openpush'></view>
-      </navigator>
     </view>
+    <image class='line1'></image>
   </view>
     <view wx:if="{{isEnd==true}}" class="classname" style="text-align: center;font-size: 35rpx;color: #ccc">
       ------------全部加载完毕------------

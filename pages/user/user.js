@@ -1,34 +1,24 @@
 // pages/user/user.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo: '',
-
-  },
-
-  //选择领域
-  pickerFiled: function (e) {
-    this.setData({
-      fIndex: e.detail.value
-    })
-  },
-
-  //选择微博状态
-  pickerStatus: function(e){
-    this.setData({
-      sIndex:e.detail.value
-    })
+    userInfo: wx.getStorageSync(app.globalData.userInfoKey),
+    newName:'',
+    oldName:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("开始获得姓名")
+    this.getName(),
     this.setData({
-      userInfo: getApp().globalData.userInfo,
+      userInfo: app.globalData.userInfo,
     })
   },
 
@@ -60,24 +50,80 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  inputName(ev) {
+    let e = ev.detail;
+    this.setData({
+      newName: e.value
+    });
   },
+  editName() {
+    var that=this;
+    console.log(this.data.newName)
+    if (this.data.newName != this.data.oldName && (this.data.newName != null || this.data.oldName != '')){
+      wx.showModal({
+        title: '修改姓名',
+        content: '确认要将姓名修改为'+this.data.newName+' 吗?',
+        showCancel: true,
+        cancelText: '否',
+        cancelColor: '',
+        confirmText: '是',
+        confirmColor: '',
+        success: function(res) {
+          if(res.cancel){
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+          } else {
+            that.edit()
+          }
+        },
+        fail: function(res) {},
+        complete: function(res) {},
+      })
 
+    }
+    
   },
+  edit: function() {
+    wx.request({
+      url: app.globalData.domain + "/wxUser/editName",
+      header: {
+        'Cookie': app.globalData.cookie,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      data: {
+        newName: this.data.newName,
+      },
+      success: res => {
+        if (res.data == true) {
+          wx.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 1000,
+          })
+        } else {
+          wx.showToast({
+            title: '修改失败',
+            icon: 'none',
+            duration: 1000,
+          })
+        }
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+      }
+    })
+  },
+  getName:function() {
+    wx.request({
+      url: app.globalData.domain + "/wxUser/getName",
+      header: {
+        'Cookie': app.globalData.cookie,
+      },
+      success: res =>{
+        this.setData({
+          newName: res.data,
+          oldName: res.data
+        })
+      }
+    })
   }
+  
 })

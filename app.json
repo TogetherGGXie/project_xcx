@@ -1,11 +1,10 @@
 {
   "pages": [
-    "pages/pageopen/pageopen",
-    "pages/projectpublication/projectpublication",
     "pages/auth/auth",
-    "pages/publication/publication",
-
     "pages/index/index",
+    "pages/details/details",
+    "pages/projectpublication/projectpublication",
+    "pages/publication/publication",
     "pages/user/user",
     "templates/searchBox/index"
   ],

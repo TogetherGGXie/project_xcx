@@ -18,7 +18,8 @@ Page({
     pageNumber: 1,
     pageSize : 5,
     projectList: [],
-    pages: 0
+    pages: 0,
+    authority:''
   },
   onLoad: function () {
     this.setData({
@@ -28,7 +29,8 @@ Page({
       pageNumber: 1,
       searchstr: '',
       projectList: [],
-      pages: 0
+      pages: 0,
+      authority:app.globalData.authority
     });
     this.getProjects();
   },
@@ -46,11 +48,19 @@ Page({
       success: res => {
         console.log(res.data)
         var old = this.data.projectList;
-        var that = this
+        var that = this;
+        for(var i =0;i<res.data.records.length;i++){
+          res.data.records[i].img = res.data.records[i].img.split(" ")[0]
+        }
         this.setData({
           projectList: old.concat(res.data.records),
           pages: res.data.pages
         })
+        if (this.data.pages == 0 || this.data.pages == this.data.pageNumber)
+          this.setData({
+            isEnd: true
+          })
+        else this.data.isEnd = false;
         // setData data
       }
     })
@@ -66,12 +76,12 @@ Page({
       isShowUserPannel: isShow
     })
   },
-  //跳转详情页
-  gotoDetail: function() {
-    wx.navigateTo({
-      url: '/pages/pageopen/pageopen',
-    })
-  },
+  // //跳转详情页
+  // gotoDetail: function() {
+  //   wx.navigateTo({
+  //     url: '/pages/pageopen/pageopen',
+  //   })
+  // },
   // 搜索框右侧 事件
   addhandle() {
     console.log('触发搜索框右侧事件')
@@ -145,6 +155,17 @@ Page({
     }
 
   },
+  showDetail: function(e) {
+    console.log(e.currentTarget.id),
+      wx.navigateTo({
+        url: '../details/details?projectId=' + e.currentTarget.id,
+      })
+  },
+  errorFunction: function () {
+    this.setData({
+      avatar: '/images/default.jpg'
+    })
+  }
   
 
 })

@@ -25,236 +25,10 @@
 /*隔壁有坑文字属性  */
 
 .header > text {
-  color: #ffd92e;
+  color: #0a0901;
   font-size: 60rpx;
   font-weight: 900;
   padding-left: 24rpx;
-}
-
-/*特别推荐轮播图整体属性  */
-
-.body {
-  padding: 0px 50rpx;
-}
-
-/*特别推荐属性  */
-
-.title0 {
-  color: #000;
-  font-size: 40rpx;
-  font-weight: 900;
-  margin-top: 34rpx;
-  display: block;
-}
-
-/*自媒体联动小程序属性  */
-
-.title2 {
-  color: #d4d2d4;
-  font-size: 30rpx;
-  display: block;
-  padding-top: 10rpx;
-}
-
-
-
-/* 今日联动属性   */
-
-.title0 {
-  color: #000;
-  font-size: 40rpx;
-  font-weight: 900;
-  margin-top: 34rpx;
-  display: block;
-}
-
-/*膨胀小人物属性  */
-
-.title3 {
-  color: #3e3939;
-  font-size: 35rpx;
-  display: block;
-  margin-top: 37rpx;
-  font-weight: 900;
-}
-
-/*第一部分头图属性  */
-
-.touxiang1 {
-  width: 110rpx;
-  height: 110rpx;
-  overflow: hidden;
-  float: left;
-  margin-left: -1rpx;
-  border-radius: 20rpx;
-  margin-top: 11rpx;
-}
-
-/*第一部分标题属性  */
-
-.touxiangbiaoti {
-  font-size: 30rpx;
-  display: block;
-}
-
-/*第一部分内容框架属性  */
-
-.desc {
-  padding-left: 22rpx;
-  margin-left: 110rpx;
-  line-height: 28rpx;
-  margin-top: 18rpx;
-  margin-right: 80rpx;
-}
-
-/*第一部分内容属性  */
-
-.touxiangneirong {
-  font-size: 25rpx;
-  color: #e1e1e1;
-}
-
-/*第一部分按钮属性  */
-
-.anniu1 {
-  width: 50rpx;
-  height: 50rpx;
-  overflow: hidden;
-  float: right;
-  margin-left: -1rpx;
-  border-radius: 10rpx;
-  margin-top: 47rpx;
-}
-
-/*第一部分分割线  */
-
-.fengexian {
-  border-bottom: 2rpx solid #e1e1e1;
-  padding: 0rpx 325rpx;
-  margin-left: 50rpx;
-}
-
-/*第二部分框架属性  */
-
-.bodytext2 {
-  padding: 0px 50rpx;
-  margin-top: 50rpx;
-}
-
-/*第二部分日常奇葩文字属性  */
-
-.title4 {
-  color: #3e3939;
-  font-size: 35rpx;
-  display: block;
-  margin-top: 37rpx;
-  font-weight: 900;
-}
-
-/*第二部分头像属性  */
-
-.touxiang2 {
-  width: 110rpx;
-  height: 110rpx;
-  overflow: hidden;
-  float: left;
-  margin-left: -1rpx;
-  border-radius: 20rpx;
-  margin-top: 11rpx;
-}
-
-/*第二部分标题属性  */
-
-.touxiangbiaoti2 {
-  font-size: 30rpx;
-  display: block;
-}
-
-/*第二部分内容框架属性  */
-
-.desc1 {
-  padding-left: 22rpx;
-  margin-left: 110rpx;
-  line-height: 28rpx;
-  margin-top: 18rpx;
-  margin-right: 80rpx;
-}
-
-/*第二部分内容属性  */
-
-.touxiangneirong2 {
-  font-size: 25rpx;
-  color: #e1e1e1;
-}
-
-/*第二部分分割线  */
-
-.fengexian2 {
-  border-bottom: 2rpx solid #e1e1e1;
-  padding: 0rpx 325rpx;
-  margin-left: 50rpx;
-}
-
-/*第三部分整体属性  */
-
-.bodytext3 {
-  padding: 0px 50rpx;
-  margin-top: 50rpx;
-}
-
-/*第三部分贫穷认可属性  */
-
-.title5 {
-  color: #3e3939;
-  font-size: 35rpx;
-  display: block;
-  margin-top: 37rpx;
-  font-weight: 900;
-}
-
-/*第三部分头像属性  */
-
-.touxiang3 {
-  width: 110rpx;
-  height: 110rpx;
-  overflow: hidden;
-  float: left;
-  margin-left: -1rpx;
-  border-radius: 20rpx;
-  margin-top: 11rpx;
-}
-
-/*第三部分标题文字属性  */
-
-.touxiangbiaoti3 {
-  font-size: 30rpx;
-  display: block;
-}
-
-/*第三部分内容框架属性  */
-
-.desc2 {
-  padding-left: 22rpx;
-  margin-left: 110rpx;
-  line-height: 28rpx;
-  margin-top: 18rpx;
-  margin-right: 80rpx;
-}
-
-/*第三部分内容属性  */
-
-.touxiangneirong3 {
-  font-size: 25rpx;
-  color: #e1e1e1;
-}
-
-/*第三部分分割线  */
-
-.fengexian3 {
-  border-bottom: 2rpx solid #e1e1e1;
-  padding: 0rpx 325rpx;
-  margin-left: 50rpx;
-  bottom: 50rpx;
 }
 
 .projectbox {
@@ -272,7 +46,7 @@
 }
 
 .project {
-  width: 650rpx;
+  width: 100%;
   height: 180rpx;
   margin: 0 auto;
   margin-top: 30rpx;
@@ -306,35 +80,42 @@
   display: block;
 }
 
-.jianjie {
+.leaderName {
   font-size: 25rpx;
-  color: #e1dddd;
+  color: #3e3939;
   display: block;
   margin-right: 110rpx;
   padding-top: -5rpx;
   line-height: 16px;
 }
 
-.field {
+.start {
   font-size: 25rpx;
-  color: #ffd92e;
+  color: #3e3939;
   display: block;
-  margin-top: 35rpx;
+  margin-top: 15rpx;
   position: absolute;
   top: 75rpx;
   left: 0rpx;
+  width:250rpx;
   z-index: 1;
 }
 
- .openpush {
-  width: 0rpx;
-  height: 0rpx;
-  border-left: 35rpx solid #ffd92e;
-  border-right: 20rpx solid transparent;
-  border-bottom: 20rpx solid transparent;
-  border-top: 20rpx solid transparent;
+.end {
+  font-size: 25rpx;
+  color: #3e3939;
+  display: block;
+  margin-top: 15rpx;
   position: absolute;
-  top: 71rpx;
-  right: 0rpx;
-  z-index: 0;
-} 
+  top: 110rpx;
+  left: 0rpx;
+  width:250rpx;
+  z-index: 1;
+}
+.line1 {
+  border-top: 2rpx solid #e1e1e1;
+  width: 100%;
+  height: 1rpx;
+  display: block;
+  margin-top: 12rpx;
+}

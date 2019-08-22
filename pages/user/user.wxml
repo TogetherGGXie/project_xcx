@@ -11,21 +11,17 @@
 <!--基本信息盒模型  -->
 <view class='basic'>
   <text class='basictext'>基本信息</text>
-
   <!--名字部分  -->
   <view class='namebox'>
     <text class='name'>姓名</text>
-    <image class='nameicon' src='/images/righticon.png'></image>
-    <text class='nametext'>{{userInfo.nickName}}</text>
+    <input class='nametext' value="{{newName}}" bindinput="inputName" bindconfirm="editName"></input>
   </view>
 
   <!--手机号部分  -->
   <view class='namebox'>
     <text class='name'>手机号</text>
-    <image class='nameicon' src='/images/righticon.png'></image>
     <input placeholder-class='textcolor' class='nametext' type='number'></input>
   </view>
-
 </view>
 
 

@@ -184,7 +184,7 @@ Page({
       for (var i = 0; i < tempFilePaths.length; i++) {
         await this.uploadImg(tempFilePaths[i]).then((res) => {
           console.log("res="+res)
-          pics = pics + res + " " // 图片地址
+          pics = pics + res + (i == tempFilePaths.length-1?"":" ") // 图片地址
           that.setData({
             pics: pics
           })
@@ -263,19 +263,20 @@ Page({
       url: app.globalData.domain + '/projectLog/addLog',
       method: 'POST',
       header: {
+        'Cookie': app.globalData.cookie,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: {
         pics: this.data.pics,
         date: this.data.time,
-        userId: 1,
         projectId: this.data.projectId,
         content: this.data.content
-
       },
       success: res => {
         console.log(res.data)
-        // setData data
+        wx.redirectTo({
+          url: '../details/details?projectId=' + res.data.projectId ,
+        })
       }
     })
   }
