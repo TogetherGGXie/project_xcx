@@ -4,30 +4,28 @@ const app = getApp()
 var util = require("../../utils/util.js")
 Page({
   data: {
-    autoplay: true,
-    interval: 5000,
-    duration: 800,
     project: null,
     isShowUserPannel: false, //是否显示个人中心面板
     userInfo: app.globalData.userInfo,
-    hasUserInfo: app.globalData.hasUserInfo,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     weekday: '',
     week: ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-    imgsrcs:[],
-    imgUrls: [],
+    imgsrcs:null,
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 800,
     pageNumber: 1,
     pageSize: 5,
-    logList: [],
+    logList: null,
     pages: 0,
     projectId:'',
     showModal:false,
-    logDetail:null,
+    viewHistory:null,
+    keyword:'', //标签
+    keywords:null, //返回的关键字
+    idx:-1,
   },
 
   onLoad:function(options){
@@ -35,9 +33,11 @@ Page({
       projectId:options.projectId,
       domain:app.globalData.domain,
       pageNumber: 1,
-      projectList: [],
+      imgsrcs: null,
       logList: [],
-      pages: 0
+      pages: 0,
+      keyword:'',
+      idx:-1,
     })
     this.getProject(options.projectId)
     this.getProjectLogs(options.projectId)
@@ -60,14 +60,22 @@ Page({
         console.log(res.data)
         this.setData({
           project:res.data,
-          imgsrcs:res.data.img.split(" "),
+          // imgsrcs:res.data.img.split(","),
+          // keywords:res.data.keywords.split(",")
         })
         // for(var i=0;i<this.data.imgsrcs.length-1;i++){
         //   this.data.imgsrcs[i] = app.globalData.domain+"/"+this.data.imgsrcs[i];
         // } 
-        this.data.imgUrls=[];
-        this.data.imgUrls=this.data.imgsrcs;
-        console.log(this.data.imgsrcs);
+        if (res.data.img != '' && res.data.img != null) {
+          this.setData({
+            imgsrcs : res.data.img.split(","),
+          })
+        }
+        if (res.data.keywords != '' && res.data.keywords != null){
+          this.setData({
+            keywords: res.data.keywords.split(","),
+          })
+        }
         let date = new Date(this.data.project.startTime);
         this.data.weekday=this.data.week[date.getDay()]
       }
@@ -79,7 +87,8 @@ Page({
       data: {
         pageNumber: this.data.pageNumber,
         pageSize: this.data.pageSize,
-        projectId: this.data.projectId
+        projectId: this.data.projectId,
+        keyword:this.data.keyword
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -89,8 +98,10 @@ Page({
         var old = this.data.logList;
         var that = this;
         for (var i = 0; i < res.data.records.length; i++) {
-          res.data.records[i].pic = res.data.records[i].pics.split(" ")[0]
-          res.data.records[i].pics = res.data.records[i].pics.split(" ")
+          if (res.data.records[i].pics != null && res.data.records[i].pics != ''){
+            res.data.records[i].pic = res.data.records[i].pics.split(",")[0]
+            res.data.records[i].pics = res.data.records[i].pics.split(",")
+          }
           res.data.records[i].weekday = this.data.week[new Date(res.data.records[i].date).getDay()];
         }
         this.setData({
@@ -104,6 +115,7 @@ Page({
           else 
             this.data.isEnd = false;
         // setData data
+        console.log("getlogs done")
       }
     })
   },
@@ -129,21 +141,65 @@ Page({
       this.getProjectLogs(this.data.projectId);
     }
   },
+  setKeyword: function (e) {
+    console.log(e.currentTarget.id)
+    if (this.data.keyword == '' || this.data.keyword != this.data.keywords[e.currentTarget.id]) {
+      this.setData({
+        keyword: this.data.keywords[e.currentTarget.id],
+        idx: e.currentTarget.id,
+        logList:[]
+      })
+    } else {
+      this.setData({
+        keyword: '',
+        idx:-1,
+        logList:[]
+      })
+    }
+    this.getProjectLogs(this.data.projectId);
+
+  },
   showDetail: function (e) {
+    wx.navigateTo({
+      url: '../logdetails/logdetails?projectName='+this.data.project.projectName+'&log=' + JSON.stringify(this.getLog(e.currentTarget.id)),
+    })
+  },
+
+  showView: function(e) {
     console.log(e.currentTarget.id)
     this.setData({
       showModal:true,
-      logDetail: this.getLog(e.currentTarget.id)
     })
-    console.log(this.data.logDetail)
-  },
-  preventTouchMove: function () {
+    wx.request({
+      url: app.globalData.domain + "/viewStatis/getViewHistory?logId=" + e.currentTarget.id,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        this.setData({
+          viewHistory: res.data,
+        })
+        if (res.data.length == 0){
+          wx.showToast({
+            title: '暂无浏览记录',
+            duration:1000,
+            icon:'none'
+            
+          })
 
+        }
+      }
+    })
+  },
+
+  preventTouchMove: function () {
+    
   },
   hideModel:function() {
     this.setData({
       showModal: false,
-      logDetail: null,
+      viewHistory: null,
       logId:null,
     })
   },
@@ -163,16 +219,16 @@ Page({
     console.log(pics[idx])
     wx.previewImage({
       current: pics[idx],  //当前预览的图片
-      urls: pics,  //所有要预览的图片
+      urls: [],  //所有要预览的图片
     })
   },
   handleProjectImagePreview(e) {
     const idx = e.target.dataset.idx
-    const pics = this.data.imgUrls
+    const pics = this.data.imgsrcs
     console.log(pics[idx])
     wx.previewImage({
       current: pics[idx],  //当前预览的图片
-      urls: pics,  //所有要预览的图片
+      urls: [],  //所有要预览的图片
     })
   },
 

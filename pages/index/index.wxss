@@ -97,7 +97,7 @@
   position: absolute;
   top: 75rpx;
   left: 0rpx;
-  width:250rpx;
+  width:350rpx;
   z-index: 1;
 }
 
@@ -109,7 +109,7 @@
   position: absolute;
   top: 110rpx;
   left: 0rpx;
-  width:250rpx;
+  width:350rpx;
   z-index: 1;
 }
 .line1 {

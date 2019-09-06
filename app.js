@@ -8,6 +8,7 @@ let app = {
     hasUserInfo: !!wx.getStorageSync(USERINFOKEY), //是否获取用户信息成功标志
     userInfo: wx.getStorageSync(USERINFOKEY), //用户信息
     domain:"http://localhost:8088",
+    // domain:"http://49.235.215.80:8088",
     cookie:'',
     authority:'',
   },
@@ -28,8 +29,6 @@ let app = {
       //获取code
       success: function (res) {
         var code = res.code; //返回code
-        console.log(code);
-        console.log(that.globalData)
         wx.request({
           url: that.globalData.domain + '/wxUser/decodeUserInfo',
           data: {

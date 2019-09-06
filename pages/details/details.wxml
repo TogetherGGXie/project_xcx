@@ -6,12 +6,20 @@
 <view class='add_symbol' bindtap='showUserPannel'></view>
 
   <swiper class='imgsilder' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" indicator-active-color="#FFD92E" indicator-color="#E8F0F1" interval="{{interval}}" duration="{{duration}}" circular="true">
-    <block wx:for="{{imgsrcs}}" wx:key="index">
+    <block wx:if="{{imgsrcs!=null}}">
+      <block wx:for="{{imgsrcs}}" wx:key="index">
+        <swiper-item>
+          <image mode='aspectFill' src="{{domain}}/{{item}}" class="slide-image" width="355" height="200" bindtap="handleProjectImagePreview" data-idx="{{index}}" />
+        </swiper-item>
+      </block>
+    </block>
+    <block wx:else>
       <swiper-item>
-        <image mode='aspectFill' src="{{domain}}/{{item}}" class="slide-image" width="355" height="200" bindtap="handleProjectImagePreview" data-idx="{{index}}" binderror="errorFunction"/>
+        <image mode='aspectFill' src="../../images/default.jpg" class="slide-image" width="355" height="200" />
       </swiper-item>
     </block>
   </swiper>
+
 <!--标题  -->
 <text class="biaoti">{{project.projectName}}</text>
 <text class="duration">工期：{{project.startTime}}--<text wx:if="{{project.endTime==null}}">至今</text><text wx:elif="{{project.endTime!=null}}">{{project.endTime}}</text></text>
@@ -20,16 +28,24 @@
 <text class='writer'>负责人： {{project.leaderName}}</text>
 <text class='line'></text>
 
+<!--关键字 -->
+<view wx:if="{{keywords!==null}}"class="keywords" wx:for="{{keywords}}" wx:key="index" id="{{index}}" bindtap="setKeyword">
+  <view class="{{idx==index?'selected':'keyword'}}">{{item}}</view>
+</view>
+<image wx:if="{{keywords!==null}}" class='line1'></image>
+
+
 <!--内容板块  -->
   <view class="logs" wx:for="{{logList}}" wx:key="index" bindtap="showDetail" id="{{item.logId}}">
     <view class="log">
-      <image wx:if="{{item.pic!=''}}" class='headimage' src="{{domain}}/{{item.pic}}" ></image>
-      <image wx:if="{{item.pic==''}}" class='headimage' src="../../images/default.jpg" ></image>
+      <image wx:if="{{item.pic!='' && item.pic!=null}}" class='headimage' src="{{domain}}/{{item.pic}}" ></image>
+      <image wx:else class='headimage' src="../../images/default.jpg" ></image>
       <view class='logtext'>
         <text class='date'>{{item.date}}</text>
         <text class='weekday'>{{item.weekday}}</text>
         <text class='userName'>{{item.userName}}</text>
         <text class='content'>{{item.content}}</text>
+        <view class='viewTimes' catchtap="showView" id="{{item.logId}}"><image class='viewTimeIcon' src="../../images/view.png" /><text> 浏览 {{item.viewTimes}}</text></view>
       </view>
       <image class='line1'></image>
     </view>
@@ -37,20 +53,22 @@
     <view wx:if="{{isEnd==true}}" class="classname" style="text-align: center;margin-top:20rpx;font-size: 35rpx;color: #ccc">
       ------------全部加载完毕------------ 
 </view>
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
-<view class="modalDlg" wx:if="{{showModal}}">
-    <text class='modeldate'>{{logDetail.date}}</text>
-    <text class='modelweekday'>{{logDetail.weekday}}</text>
-    <text class='modeluserName'>{{logDetail.userName}}</text>
-    <text class='modelcontent'>{{logDetail.content}}</text>
-    <view class="question-images">
-    <block wx:for="{{logDetail.pics}}" >
-    <view class="q-image-wrap">
-      <!-- 图片缩略图  -->
-      <image class="q-image" src="{{domain}}/{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview" ></image>
+<view class="mask" catchtouchmove="preventTouchMove" catchtap="hideModel" wx:if="{{showModal}}"></view>
+<scroll-view scroll-y="true" class="modalDlg" wx:if="{{showModal}}">
+<view class='title'>浏览记录</view>
+<view class="tableView">
+  <view class="table_header">
+    <view class="th th1">姓名</view>
+    <view class="th th2">时间</view>
+  </view>
+  <block wx:for="{{viewHistory}}" >
+    <view class="table_cell">
+      <view class="td td1">{{item.name}}</view>
+      <view class="td td2">{{item.viewTime}}</view>
     </view>
   </block>
+
   </view>
-    <button class='modelbutton' type="default" size="mini" bindtap="hideModel">关闭</button>
-</view>
+  
+</scroll-view>
 

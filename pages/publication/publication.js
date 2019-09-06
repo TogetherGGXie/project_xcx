@@ -273,10 +273,18 @@ Page({
         content: this.data.content
       },
       success: res => {
-        console.log(res.data)
-        wx.redirectTo({
-          url: '../details/details?projectId=' + res.data.projectId ,
-        })
+        if(res.data.code == 0){
+          console.log(res.data)
+          wx.redirectTo({
+            url: '../details/details?projectId=' + res.data.projectId,
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            duration: 1000,
+          })
+        }
+
       }
     })
   }

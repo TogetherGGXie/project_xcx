@@ -1,0 +1,41 @@
+<!--导航栏  -->
+<view class='navigation'>
+  <!--返回按钮  -->
+  <navigator open-type="navigateBack" class="return">返回</navigator>
+  <!--  -->
+  <!--发布按钮  -->
+</view>
+
+<view class='heading'>
+  <text class='title1' mode="date">日期 {{detail.date}}</text>
+  <image class='line1'></image>
+  <text class="title1">项目 {{projectName}}</text> 
+  <image class='line1'></image>
+  <!--生产情况记录  -->
+  <scroll-view scroll-y="true" class="title1">
+    <textarea placeholder-class='textcolor' class='content' disabled="disabled">{{detail.content}}</textarea>
+  </scroll-view>
+  <image class='line1'></image>
+</view>
+
+<view class='pic-title'>
+    <view class='title1'>照片</view>
+</view>
+
+<view class='tfright'>
+  <view class="question-images">
+    <block wx:if="{{pics != null}}">
+      <block  wx:for="{{pics}}" >
+        <view class="q-image-wrap">
+          <!-- 图片缩略图  -->
+          <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+        </view>
+      </block>
+    </block>
+    <view wx:if="{{pics == null || pics == ''}}" class="q-image-wrap">
+      <image class="q-image" src="../../images/default.jpg" ></image>
+    </view>
+  </view>
+
+</view>
+

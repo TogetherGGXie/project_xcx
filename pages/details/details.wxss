@@ -163,6 +163,25 @@
   line-height: 100rpx;
 } */
 
+.keywords {
+  margin-top:10rpx;
+  margin-left:20rpx;
+  display:inline-block;
+}
+
+.keyword {
+  background-color: #e1e1e1;
+  border-radius: 15rpx;
+  margin: 0 5rpx 5rpx 0;
+  padding: 0 10px;
+}
+.selected {
+  background-color: #ee9611;
+  border-radius: 15rpx;
+  margin: 0 5rpx 5rpx 0;
+  padding: 0 10px;
+}
+
 .log {
   width: 100%;
   height: 180rpx;
@@ -190,6 +209,7 @@
   top: 15rpx;
   left: 180rpx;
   z-index: 0;
+  height:100%;
 }
 
 .userName {
@@ -209,9 +229,9 @@
   color: #3e3939;
   display: block;
   margin-right: 110rpx;
-  margin-top:18rpx;
+  margin-top:27rpx;
   padding-top: -5rpx;
-  line-height: 16px;
+  line-height: 18px;
   display: -webkit-box;        
   word-break: break-all;
   text-overflow: ellipsis;  
@@ -219,7 +239,7 @@
   padding-right: 10px;
   overflow: hidden;            
   -webkit-box-orient: vertical;   
-  -webkit-line-clamp: 3;  
+  -webkit-line-clamp: 2;  
 }
 
 .date {
@@ -245,16 +265,19 @@
   width: 115rpx;
   z-index: 1;
 }
-.end {
+.viewTimes {
+  position: absolute;
   font-size: 25rpx;
   color: #3e3939;
   display: block;
-  margin-top: 15rpx;
-  position: absolute;
-  top: 110rpx;
+  bottom: 12rpx;
   left: 0rpx;
-  width:250rpx;
+  width: 250rpx;
   z-index: 1;
+}
+.viewTimeIcon {
+  width: 40rpx;
+  height: 20rpx;
 }
 .line1 {
   border-top: 2rpx solid #e1e1e1;
@@ -289,72 +312,70 @@
     align-items: center;
 }
 
-.modelcontent {
-  font-size: 30rpx;
-  color: #3e3939;
-  display: block;
-  margin-right: 20rpx;
-  margin-top: 115rpx;
-  padding-top: -5rpx;
-  line-height: 18px;
-  word-break: break-all;
-  margin-left: 20px;
-  padding-right: 10rpx;
-  height:180rpx;
-  overflow-y:auto;
+.title{
+  width: 100%;
+  text-align: center;
+  font-size: 50rpx;
+  font-weight: 900
 }
-.modeldate {
-  font-size: 35rpx;
-  color: #3e3939;
-  display: block;
-  margin-top: 60rpx;
-  position: absolute;
-  top: -15rpx;
-  left: 20rpx;
-  width: 200rpx;
-  z-index: 1;
+.tableView{
+  border:1px solid #000;
+  border-right:0;
+  border-bottom: 0;
+  width: 90%;
+  margin-left: 5%;
 }
-.modelweekday {
+/* 表头 */
+.table_header{
+  display: flex;
+  justify-content: space-between; /* 项目位于各行之间留有空白的容器内。 */
+  background-color: #fff;
+  width: 100%;
   font-size: 35rpx;
-  color: #3e3939;
-  display: block;
-  margin-top: 60rpx;
-  position: absolute;
-  top: -15rpx;
-  left: 230rpx;
-  width: 130rpx;
-  z-index: 1;
+  color: #330e0e;
+  text-align: center;
+  font-weight: 900;
+} 
+.th{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
 }
-.modeluserName {
-  font-size: 35rpx;
-  color: #3e3939;
-  display: block;
-  margin-top: 60rpx;
-  position: absolute;
-  top: -15rpx;
-  left: 385rpx;
-  width: 168rpx;
-  z-index: 1;
+.th1{
+  width: 35%
+}
+.th2{
+  width: 65%
+}
+/* 表格cell */
+.table_cell{
+  display: flex;
+  justify-content: space-between; /* 项目位于各行之间留有空白的容器内。 */
+  width: 100%;
+  font-size: 25rpx;
+  color: #330e0e;
+  text-align: center;
+}
+.td{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60rpx;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  
+} 
+.td1{
+  width: 35%
+} 
+.td2{
+  width: 65%
+}
 
-}
 .modelbutton{
   position: absolute;
   bottom:10rpx;
-}
-
-.q-image-wrap {
-  width: 31%;
-  margin-right: 10rpx;
-}
-
-.q-image {
-  flex: 1;
-  height: 200rpx;
-  width: 100%;
-}
-.question-images {
-  display: flex;
-  align-items: center;
-  margin-top: 40rpx;
-  width:460rpx;
 }

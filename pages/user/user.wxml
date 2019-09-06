@@ -19,7 +19,7 @@
 
   <!--手机号部分  -->
   <view class='namebox'>
-    <text class='name'>手机号</text>
+    <text class='name'>组织</text>
     <input placeholder-class='textcolor' class='nametext' type='number'></input>
   </view>
 </view>

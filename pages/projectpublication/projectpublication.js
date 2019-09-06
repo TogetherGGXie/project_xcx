@@ -235,7 +235,6 @@ Page({
       this.data.endTime != '') 
       if (this.data.startTime > this.data.endTime){ console.log("开工时间大于竣工时间"); flag = false; }
     if (this.data.startTime == null || this.data.startTime == '') {
-      console.log("项目名称kong"); 
       flag = false;
     }
     if (this.data.projectName == null || this.data.projectName == '') { console.log("项目名称kong"); flag = false; }
@@ -290,10 +289,18 @@ Page({
 
       },
       success: res => {
-        console.log(res.data);
-        wx.redirectTo({
-          url: '../details/details?projectId=' + res.data,
-        })
+        if(res.data.code == 0) {
+          console.log(res.data);
+          wx.redirectTo({
+            url: '../details/details?projectId=' + res.data.projectId,
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            duration: 1000,
+          })
+        }
+
       }
     })
   }

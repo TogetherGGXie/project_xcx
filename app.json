@@ -6,7 +6,8 @@
     "pages/projectpublication/projectpublication",
     "pages/publication/publication",
     "pages/user/user",
-    "templates/searchBox/index"
+    "templates/searchBox/index",
+    "pages/logdetails/logdetails"
   ],
   "window": {
     "backgroundTextStyle": "light",

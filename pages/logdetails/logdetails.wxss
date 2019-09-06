@@ -43,6 +43,17 @@
   display: block;
   padding-top: 20rpx;
   padding-bottom: 15rpx;
+  overflow: break-word;
+}
+
+.content {
+  font-size: 30rpx;
+  color: #302F2F;
+  height:150px;
+  display: block;
+  padding-top: 20rpx;
+  padding-bottom: 15rpx;
+  width: calc( 100% - 80rpx );
 }
 
 .textcolor{
@@ -102,11 +113,7 @@
   width: 100%;
 }
 
-.q-image-remover {
-  text-align: center;
-}
-
 .btn {
-  margin-left: 30rpx;
+  padding-left: 40rpx;
   
 }

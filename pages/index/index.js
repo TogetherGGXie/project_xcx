@@ -46,7 +46,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         var old = this.data.projectList;
         var that = this;
         for(var i =0;i<res.data.records.length;i++){
@@ -76,12 +76,7 @@ Page({
       isShowUserPannel: isShow
     })
   },
-  // //跳转详情页
-  // gotoDetail: function() {
-  //   wx.navigateTo({
-  //     url: '/pages/pageopen/pageopen',
-  //   })
-  // },
+
   // 搜索框右侧 事件
   addhandle() {
     console.log('触发搜索框右侧事件')
@@ -101,7 +96,6 @@ Page({
       searchText: this.data.searchstr,
       pageNumber: 1
     });
-    console.log('查询数据'+this.data.searchText+this.data.pageNumber)
     this.getProjects();
   },
   // 取消搜索

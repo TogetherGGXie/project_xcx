@@ -94,7 +94,7 @@ Page({
         newName: this.data.newName,
       },
       success: res => {
-        if (res.data == true) {
+        if (res.data.code == 0) {
           wx.showToast({
             title: '修改成功',
             icon: 'success',
