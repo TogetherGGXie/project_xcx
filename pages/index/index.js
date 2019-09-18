@@ -43,25 +43,33 @@ Page({
         searchText: this.data.searchText
       },
       header: {
+        'Cookie': app.globalData.cookie,
         'content-type': 'application/json' // 默认值
       },
       success: res => {
         // console.log(res.data)
-        var old = this.data.projectList;
-        var that = this;
-        for(var i =0;i<res.data.records.length;i++){
-          res.data.records[i].img = res.data.records[i].img.split(" ")[0]
-        }
-        this.setData({
-          projectList: old.concat(res.data.records),
-          pages: res.data.pages
-        })
-        if (this.data.pages == 0 || this.data.pages == this.data.pageNumber)
-          this.setData({
-            isEnd: true
+        if(res.data.code != 0){
+          wx.showToast({
+            title: 'msg',
+            icon: none
           })
-        else this.data.isEnd = false;
-        // setData data
+        } else {
+          var old = this.data.projectList;
+          var that = this;
+          for(var i =0;i<res.data.records.length;i++){
+            res.data.records[i].img = res.data.records[i].img.split(" ")[0]
+          }
+          this.setData({
+            projectList: old.concat(res.data.records),
+            pages: res.data.pages
+          })
+          if (this.data.pages == 0 || this.data.pages == this.data.pageNumber)
+            this.setData({
+              isEnd: true
+            })
+          else this.data.isEnd = false;
+          // setData data
+        }
       }
     })
   },

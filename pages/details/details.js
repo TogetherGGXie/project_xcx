@@ -56,28 +56,40 @@ Page({
   getProject:function (e){
     wx.request({
       url: app.globalData.domain+"/project/getProject/"+e,
+      header: {
+        'Cookie': app.globalData.cookie,
+        'content-type': 'application/json' // 默认值
+      },
       success: res => {
         console.log(res.data)
-        this.setData({
-          project:res.data,
-          // imgsrcs:res.data.img.split(","),
-          // keywords:res.data.keywords.split(",")
-        })
-        // for(var i=0;i<this.data.imgsrcs.length-1;i++){
-        //   this.data.imgsrcs[i] = app.globalData.domain+"/"+this.data.imgsrcs[i];
-        // } 
-        if (res.data.img != '' && res.data.img != null) {
+        if(res.data.code == 0) {
           this.setData({
-            imgsrcs : res.data.img.split(","),
+            project: res.data.project,
+            // imgsrcs:res.data.img.split(","),
+            // keywords:res.data.keywords.split(",")
+          })
+          // for(var i=0;i<this.data.imgsrcs.length-1;i++){
+          //   this.data.imgsrcs[i] = app.globalData.domain+"/"+this.data.imgsrcs[i];
+          // } 
+          if (res.data.project.img != '' && res.data.project.img != null) {
+            this.setData({
+              imgsrcs: res.data.project.img.split(","),
+            })
+          }
+          if (res.data.project.keywords != '' && res.data.project.keywords != null){
+            this.setData({
+              keywords: res.data.project.keywords.split(","),
+            })
+          }
+          let date = new Date(this.data.project.startTime);
+          this.data.weekday=this.data.week[date.getDay()];
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: none,
+            duration: 1000
           })
         }
-        if (res.data.keywords != '' && res.data.keywords != null){
-          this.setData({
-            keywords: res.data.keywords.split(","),
-          })
-        }
-        let date = new Date(this.data.project.startTime);
-        this.data.weekday=this.data.week[date.getDay()]
       }
     })
   },
@@ -91,6 +103,7 @@ Page({
         keyword:this.data.keyword
       },
       header: {
+        'Cookie': app.globalData.cookie,
         'content-type': 'application/json' // 默认值
       },
       success: res => {
@@ -173,6 +186,7 @@ Page({
     wx.request({
       url: app.globalData.domain + "/viewStatis/getViewHistory?logId=" + e.currentTarget.id,
       header: {
+        'Cookie': app.globalData.cookie,
         'content-type': 'application/json' // 默认值
       },
       success: res => {
@@ -219,7 +233,7 @@ Page({
     console.log(pics[idx])
     wx.previewImage({
       current: pics[idx],  //当前预览的图片
-      urls: [],  //所有要预览的图片
+      urls: pics,  //所有要预览的图片
     })
   },
   handleProjectImagePreview(e) {
@@ -228,7 +242,7 @@ Page({
     console.log(pics[idx])
     wx.previewImage({
       current: pics[idx],  //当前预览的图片
-      urls: [],  //所有要预览的图片
+      urls: pics,  //所有要预览的图片
     })
   },
 

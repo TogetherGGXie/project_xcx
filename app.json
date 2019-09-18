@@ -7,13 +7,40 @@
     "pages/publication/publication",
     "pages/user/user",
     "templates/searchBox/index",
-    "pages/logdetails/logdetails"
+    "pages/logdetails/logdetails",
+    "pages/publish/publish"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "项目日志管理系统",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#707372",
+    "selectedColor": "#d96932",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "selectedIconPath": "images/home_selected.png",
+        "iconPath": "images/home.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/public_selected.png",
+        "iconPath": "images/public.png",
+        "pagePath": "pages/publish/publish",
+        "text": "发布"
+      },
+      {
+        "selectedIconPath": "images/mine_selected.png",
+        "iconPath": "images/mine.png",
+        "pagePath": "pages/user/user",
+        "text": "个人中心"
+      }
+    ]
   },
   "debug": false,
   "sitemapLocation": "sitemap.json"

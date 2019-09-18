@@ -81,6 +81,7 @@ Page({
       data: {
       },
       header: {
+        'Cookie': app.globalData.cookie,
         'content-type': 'application/json' // 默认值
       },
       success: res => {

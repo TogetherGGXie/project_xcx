@@ -4,9 +4,14 @@
 </view>
 <!--特别推荐轮播图  -->
 
-<import src="/pages/template/indexPopup.wxml" />
+
+<!-- 注掉了 -->
+<!-- <import src="/pages/template/indexPopup.wxml" />
 <template is="userPannel" data="{{isShowUserPannel,authority}}" />
-<view class='add_symbol' bindtap='showUserPannel'></view>
+<view class='add_symbol' bindtap='showUserPannel'></view> -->
+
+
+
 <view class='projectbox'>
 <!-- 搜索框 -->
 <view >
