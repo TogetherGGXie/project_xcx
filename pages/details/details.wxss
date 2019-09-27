@@ -58,6 +58,17 @@
   font-size: 50rpx;
   text-align: center;
 }
+
+.introduction {
+  font-size: 28rpx;
+  margin-top: 35rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  display: block;
+  word-wrap:break-word;
+  text-align: center;
+  color: #3e3939;
+}
 .duration {
   padding-left: 100rpx;
   padding-right: 100rpx;
@@ -76,6 +87,7 @@
   text-align: center;
   color: #3e3939;
 }
+
 
 /*大标题分割线  */
 

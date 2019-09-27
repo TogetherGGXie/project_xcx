@@ -13,7 +13,8 @@ Page({
     userInfo: wx.getStorageSync(app.globalData.userInfoKey),
     startTime: "",
     endTime: "",
-    authority:0,
+    authority: 1,
+    userName: '',
     pIndex: 0,
     projectId: '',
     projectName: '',
@@ -23,18 +24,20 @@ Page({
     legal: false,
     time: "",
     projectList: [],
+    iscomplete: true,
     // pIndex: 0,
     // projectId: '',
     // projectName: '',
     // pics: '',
     // index: 0,
     // tempFilePaths: [],
-    content: ''
+    content: '',
+    introduction: ''
   },
   //swiper切换时会调用
   pagechange: function (e) {
-    let that=this;
-    if(that.data.authority === 1){
+    let that = this;
+    if (that.data.authority === 2) {
       if ("touch" === e.detail.source) {
         let currentPageIndex = this.data.currentIndex
         currentPageIndex = (currentPageIndex + 1) % 2
@@ -42,7 +45,7 @@ Page({
           currentIndex: currentPageIndex
         })
       }
-    }else{
+    } else {
       this.setData({
         currentIndex: 0
       })
@@ -52,24 +55,24 @@ Page({
 
       })
     }
-   
+
   },
   //用户点击tab时调用
   titleClick: function (e) {
-    let that=this;
-    if(that.data.authority === 1){
+    let that = this;
+    if (that.data.authority === 2) {
       let currentPageIndex =
         this.setData({
           //拿到当前索引并动态改变
           currentIndex: e.currentTarget.dataset.idx
         })
-    }else{
+    } else {
       wx.showToast({
         title: '您无权发布项目',
-        icon:'none'
+        icon: 'none'
       })
     }
-   
+
   },
 
   /**
@@ -85,7 +88,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
+        console.log(res.data, 2222222222222)
         this.setData({
           projectList: res.data
         })
@@ -102,6 +105,14 @@ Page({
       content: e.value
     });
   },
+
+  inputIntroduction(ev) {
+    let e = ev.detail;
+    this.setData({
+      introduction: e.value
+    });
+  },
+
   pickProject: function (e) {
     this.setData({
       pIndex: e.detail.value,
@@ -175,15 +186,16 @@ Page({
   //     post();
   //   }
   // },
-  async addLog() {
-    let isValid = this.isValid();
-    var tempFilePaths = this.data.tempFilePaths;
-    var pics = this.data.pics;
-    var that = this;
+  addLog() {
+    let that = this;
+    that.isValid();
+    var tempFilePaths = that.data.tempFilePaths;
+    var pics = that.data.pics;
     var count = 0;
-    if (isValid) {
+    console.log(that.data.iscomplete, 111111111111111)
+    if (that.data.iscomplete) {
       for (var i = 0; i < tempFilePaths.length; i++) {
-        await this.uploadImg(tempFilePaths[i]).then((res) => {
+        that.uploadImg(tempFilePaths[i]).then((res) => {
           console.log("res=" + res)
           pics = pics + res + (i == tempFilePaths.length - 1 ? "" : " ") // 图片地址
           that.setData({
@@ -196,11 +208,11 @@ Page({
       console.log("上传后" + pics)
       console.log(count)
       if (count == tempFilePaths.length) {
-        this.postLog();
+        that.postLog();
       }
       else {
         console.log("count=" + count),
-          console.log("是否相等=" + this.data.tempFilePaths.length)
+          console.log("是否相等=" + that.data.tempFilePaths.length)
         wx.showToast({
           title: '图片上传失败',
           icon: 'none',
@@ -217,11 +229,13 @@ Page({
 
   },
   isValid: function () {
+    console.log('进来了')
+    let that = this;
     var flag = true;
-    if (this.data.time == null || this.data.time == '') { console.log("1kong"); flag = false; }
-    if (this.data.projectId == null || this.data.projectId == '') { console.log("2kong"); flag = false; }
-    if (this.data.content == null || this.data.content == '') { console.log("3kong"); flag = false; }
-    return flag;
+    if (that.data.time == null || that.data.time == '') { console.log("1kong"); flag = false; }
+    if (that.data.projectId == null || that.data.projectId == '') { console.log("2kong"); flag = false; }
+    if (that.data.content == null || that.data.content == '') { console.log("3kong"); flag = false; }
+    that.data.iscomplete = flag;
   },
   uploadImg: function (filePath) {
     return new Promise((resolve, reject) => {
@@ -230,6 +244,7 @@ Page({
         filePath: filePath,
         name: 'img',
         header: {
+          'Cookie': app.globalData.cookie,
           "Content-Type": "multipart/form-data"
         },
         formData: {
@@ -273,7 +288,7 @@ Page({
       success: res => {
         if (res.data.code == 0) {
           console.log(res.data)
-          wx.redirectTo({
+          wx.navigateTo({
             url: '../details/details?projectId=' + res.data.projectId,
           })
         } else {
@@ -524,6 +539,11 @@ Page({
     /**
      * 这需要赋值authority,默认值是0
      */
+    let that = this;
+    that.setData({
+      authority: app.globalData.authority,
+      userName:app.globalData.userName
+    })
 
   },
 

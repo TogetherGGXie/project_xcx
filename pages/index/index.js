@@ -50,14 +50,15 @@ Page({
         // console.log(res.data)
         if(res.data.code != 0){
           wx.showToast({
-            title: 'msg',
-            icon: none
+            title: res.data.msg,
+            icon: 'none'
           })
         } else {
           var old = this.data.projectList;
           var that = this;
           for(var i =0;i<res.data.records.length;i++){
-            res.data.records[i].img = res.data.records[i].img.split(" ")[0]
+            if (res.data.records[i].img != null && res.data.records[i].img != '')
+              res.data.records[i].img = this.data.domain + '/' + res.data.records[i].img.split(" ")[0]
           }
           this.setData({
             projectList: old.concat(res.data.records),

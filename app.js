@@ -11,6 +11,8 @@ let app = {
     // domain:"http://49.235.215.80:8088",
     cookie:'',
     authority:'',
+    userName:'',
+    organization:''
   },
   onLaunch: function () {
     // 展示本地存储能力
@@ -43,6 +45,8 @@ let app = {
             console.log(res.data)
             that.globalData.cookie = "JSESSIONID="+res.data.sessionId
             that.globalData.authority = res.data.authority
+            that.globalData.userName = res.data.userName
+            that.globalData.organization = res.data.organization
           }
         })
       }

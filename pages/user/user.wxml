@@ -14,15 +14,24 @@
   <!--名字部分  -->
   <view class='namebox'>
     <text class='name'>姓名</text>
-    <input class='nametext' value="{{newName}}" bindinput="inputName" bindconfirm="editName"></input>
+    <input class='nametext' disabled="{{isDisabled}}" value="{{userName}}" bindinput="inputName" bindconfirm="editName"></input>
   </view>
 
-  <!--手机号部分  -->
   <view class='namebox'>
     <text class='name'>组织</text>
-    <input placeholder-class='textcolor' class='nametext' type='number'></input>
+    <picker mode="multiSelector" placeholder-class='textcolor' disabled="{{isDisabled}}" class='nametext' bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" ><view class='pickervalue'><text>{{tmpOrganizationName}}-{{tmpDepartmentName}}</text></view></picker>
+  </view>
+
+  <view class='namebox'>
+    <text class='name'>权限</text>
+    <picker mode="selector" range="{{authorities}}" range-key="{{'name'}}"bindchange="pickAuthority" value = "{{tmpAuthority}}" placeholder-class='textcolor' disabled="{{isDisabled}}" class='nametext'>{{authorities[tmpAuthority].name}}</picker>
   </view>
 </view>
 
-
-<navigator class='back' open-type="navigateBack">返回</navigator>
+<block wx:if="{{isDisabled == true}}">
+  <button class='back' bindtap="setDisable">编辑</button>
+</block>
+<block wx:else >
+  <button class='cancle' bindtap="cancle">取消</button>
+  <button class='submit' bindtap="submit">提交</button>
+</block>

@@ -10,7 +10,6 @@ Page({
     projectName:'',
     domain:app.globalData.domain,
     pics: null,
-    domain: app.globalData.domain,
   },
 
   /**
@@ -22,45 +21,35 @@ Page({
       detail: tmp,
       projectName:options.projectName,
     })
-    if(tmp.pics!='' && tmp.pics!=null){
-      this.setData({
-        pics: tmp.pic.split(","),
-      })
-      console.log(app.globalData.domain)
-      for(let i = 0; i < this.data.pics.length; i++){
-        let param = 'pics[' + i + ']';
-        this.setData({
-          [param] : app.globalData.domain + "/" + this.data.pics[i],
-        })
+    this.viewLog()
+  },
 
+  viewLog() {
+    wx.request({
+      url: app.globalData.domain + "/viewStatis/addView",
+      method: 'POST',
+      header: {
+        'Cookie': app.globalData.cookie,
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      data:{
+        logId: this.data.detail.logId
+      },
+      success: res => {
+        if(res.data.code != 0) {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none',
+            duration: 200
+          })
+        }
       }
-    }
-    console.log(this.data.detail)
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
+  
   handleImagePreview(e) {
     const idx = e.target.dataset.idx
-    const tempFilePaths = this.data.pics
+    const tempFilePaths = this.data.detail.pics
     wx.previewImage({
       current: tempFilePaths[idx],  //当前预览的图片
       urls: tempFilePaths,  //所有要预览的图片

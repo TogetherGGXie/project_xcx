@@ -21,7 +21,7 @@
 
   <view class="projects" wx:for="{{projectList}}" wx:key="index" bindtap="showDetail" id="{{item.projectId}}">
     <view class="project">
-      <image wx:if="{{item.img!=''}}" class='headimage' src="{{domain}}/{{item.img}}" ></image>
+      <image wx:if="{{item.img!=''}}" class='headimage' src="{{item.img}}" ></image>
       <image wx:if="{{item.img==''}}" class='headimage' src="../../images/default.jpg" ></image>
       <view class='projecttext'>
         <text class='biaoti'>{{item.projectName}}</text>

@@ -43,16 +43,11 @@ Page({
     this.getProjectLogs(options.projectId)
   },
   showUserPannel: function () {
-    let isShow = this.data.isShowUserPannel
-    if (!isShow) {
-      isShow = true
-    } else {
-      isShow = false
-    }
-    this.setData({
-      isShowUserPannel: isShow
+    wx.switchTab({
+      url: '../publish/publish'
     })
   },
+
   getProject:function (e){
     wx.request({
       url: app.globalData.domain+"/project/getProject/"+e,
@@ -68,12 +63,13 @@ Page({
             // imgsrcs:res.data.img.split(","),
             // keywords:res.data.keywords.split(",")
           })
-          // for(var i=0;i<this.data.imgsrcs.length-1;i++){
-          //   this.data.imgsrcs[i] = app.globalData.domain+"/"+this.data.imgsrcs[i];
-          // } 
           if (res.data.project.img != '' && res.data.project.img != null) {
+            var imgsrcs = res.data.project.img.split(",")
+            for(let i = 0; i < imgsrcs.length; i++) {
+              imgsrcs[i] = this.data.domain + '/' + imgsrcs[i]
+            }
             this.setData({
-              imgsrcs: res.data.project.img.split(","),
+              imgsrcs: imgsrcs,
             })
           }
           if (res.data.project.keywords != '' && res.data.project.keywords != null){
@@ -86,13 +82,15 @@ Page({
         } else {
           wx.showToast({
             title: res.data.msg,
-            icon: none,
+            icon: 'none',
             duration: 1000
           })
         }
       }
     })
   },
+
+
   getProjectLogs: function (e) {
     wx.request({
       url: app.globalData.domain + "/projectLog/getLogs",
@@ -107,28 +105,37 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log(res.data)
         var old = this.data.logList;
         var that = this;
-        for (var i = 0; i < res.data.records.length; i++) {
-          if (res.data.records[i].pics != null && res.data.records[i].pics != ''){
-            res.data.records[i].pic = res.data.records[i].pics.split(",")[0]
-            res.data.records[i].pics = res.data.records[i].pics.split(",")
+        if(res.data.code ==0) {
+          for (var i = 0; i < res.data.records.length; i++) {
+            if (res.data.records[i].pics != null && res.data.records[i].pics != '') {
+              res.data.records[i].pic = that.data.domain + '/' + res.data.records[i].pics.split(",")[0]
+              res.data.records[i].pics = res.data.records[i].pics.split(",")
+              for (let j = 0; j < res.data.records[i].pics.length; j++) {
+                res.data.records[i].pics[j] = that.data.domain + '/' + res.data.records[i].pics[j]
+              }
+            }
+            res.data.records[i].weekday = this.data.week[new Date(res.data.records[i].date).getDay()];
           }
-          res.data.records[i].weekday = this.data.week[new Date(res.data.records[i].date).getDay()];
-        }
-        this.setData({
-          logList: old.concat(res.data.records),
-          pages: res.data.pages
-        })
-        if (this.data.pages == this.data.pageNumber || this.data.pages ==0)
           this.setData({
-            isEnd : true
-          }) 
-          else 
+            logList: old.concat(res.data.records),
+            pages: res.data.pages
+          })
+          if (this.data.pages == this.data.pageNumber || this.data.pages == 0)
+            this.setData({
+              isEnd: true
+            })
+          else
             this.data.isEnd = false;
+            console.log(this.data.logList)
         // setData data
-        console.log("getlogs done")
+        }else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
       }
     })
   },
@@ -154,6 +161,8 @@ Page({
       this.getProjectLogs(this.data.projectId);
     }
   },
+
+
   setKeyword: function (e) {
     console.log(e.currentTarget.id)
     if (this.data.keyword == '' || this.data.keyword != this.data.keywords[e.currentTarget.id]) {
@@ -210,6 +219,7 @@ Page({
   preventTouchMove: function () {
     
   },
+
   hideModel:function() {
     this.setData({
       showModal: false,
@@ -217,25 +227,16 @@ Page({
       logId:null,
     })
   },
+
   getLog:function(logId) {
-    console.log("getLog logId="+logId)
     var logList = this.data.logList
-    console.log("getLog logList" +logList)
     for (var i in logList){
       if (logList[i].logId == logId){
         return logList[i];
       }
     }
   },
-  handleImagePreview(e) {
-    const idx = e.target.dataset.idx
-    const pics = this.data.logDetail.pics
-    console.log(pics[idx])
-    wx.previewImage({
-      current: pics[idx],  //当前预览的图片
-      urls: pics,  //所有要预览的图片
-    })
-  },
+
   handleProjectImagePreview(e) {
     const idx = e.target.dataset.idx
     const pics = this.data.imgsrcs

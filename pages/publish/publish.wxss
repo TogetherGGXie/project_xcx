@@ -78,8 +78,10 @@
 .navigation {
   padding-top: 8px;
   text-align: center;
+  height: 44px;
+  padding-right: 5px;
   border-bottom: 2rpx solid #e1e1e1;
-  padding-bottom: 65rpx;
+  /* padding-bottom: 35px; */
 }
 
 /*返回图片  */
@@ -98,6 +100,7 @@
   color: #000;
   font-size: 30rpx;
   float: right;
+  background: #858fab;
   padding-right: 40rpx;
 }
 
@@ -307,54 +310,3 @@
   margin-top: 40rpx;
   margin-left: 40rpx;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

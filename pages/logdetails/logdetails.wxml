@@ -7,9 +7,11 @@
 </view>
 
 <view class='heading'>
-  <text class='title1' mode="date">日期 {{detail.date}}</text>
+  <text class='title1' mode="date">日期: {{detail.date}}</text>
   <image class='line1'></image>
-  <text class="title1">项目 {{projectName}}</text> 
+  <text class="title1">项目: {{projectName}}</text> 
+  <image class='line1'></image>
+  <text class="title1">创建者: {{detail.userName}}</text> 
   <image class='line1'></image>
   <!--生产情况记录  -->
   <scroll-view scroll-y="true" class="title1">
@@ -24,15 +26,15 @@
 
 <view class='tfright'>
   <view class="question-images">
-    <block wx:if="{{pics != null}}">
-      <block  wx:for="{{pics}}" >
+    <block wx:if="{{detail.pics != null}}">
+      <block  wx:for="{{detail.pics}}" >
         <view class="q-image-wrap">
           <!-- 图片缩略图  -->
           <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
         </view>
       </block>
     </block>
-    <view wx:if="{{pics == null || pics == ''}}" class="q-image-wrap">
+    <view wx:if="{{detail.pics == null || detail.pics == ''}}" class="q-image-wrap">
       <image class="q-image" src="../../images/default.jpg" ></image>
     </view>
   </view>

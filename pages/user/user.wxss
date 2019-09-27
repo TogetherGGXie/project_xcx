@@ -11,6 +11,7 @@ page {
   width: 750rpx;
   height: 100%;
   position: absolute;
+  z-index: -1;
 }
 
 /*头部盒模型  */
@@ -116,6 +117,9 @@ page {
   text-align: right;
 }
 
+.pickervalue {
+  font-size: 26rpx;
+}
 .nameicon {
   width: 18rpx;
   height: 32rpx;
@@ -137,6 +141,40 @@ page {
   border-radius: 25rpx;
   position: absolute;
   left: 50%;
+  margin-left: -65rpx;
+  bottom: 70rpx;
+}
+
+.cancle {
+  font-size: 30rpx;
+  color: #a5a087b4;
+  display: block;
+  text-align: center;
+  line-height: 70rpx;
+  width: 130rpx;
+  height: 70rpx;
+  background-color: rgba(255, 255, 255, 0);
+  border: 3rpx solid #a5a087b4;
+  border-radius: 25rpx;
+  position: absolute;
+  left: 35%;
+  margin-left: -65rpx;
+  bottom: 70rpx;
+}
+
+.submit {
+  font-size: 30rpx;
+  color: #a5a087b4;
+  display: block;
+  text-align: center;
+  line-height: 70rpx;
+  width: 130rpx;
+  height: 70rpx;
+  background-color: rgba(255, 255, 255, 0);
+  border: 3rpx solid #a5a087b4;
+  border-radius: 25rpx;
+  position: absolute;
+  left: 65%;
   margin-left: -65rpx;
   bottom: 70rpx;
 }

@@ -9,7 +9,7 @@
     <block wx:if="{{imgsrcs!=null}}">
       <block wx:for="{{imgsrcs}}" wx:key="index">
         <swiper-item>
-          <image mode='aspectFill' src="{{domain}}/{{item}}" class="slide-image" width="355" height="200" bindtap="handleProjectImagePreview" data-idx="{{index}}" />
+          <image mode='aspectFill' src="{{item}}" class="slide-image" width="355" height="200" bindtap="handleProjectImagePreview" data-idx="{{index}}" />
         </swiper-item>
       </block>
     </block>
@@ -22,7 +22,8 @@
 
 <!--标题  -->
 <text class="biaoti">{{project.projectName}}</text>
-<text class="duration">工期：{{project.startTime}}--<text wx:if="{{project.endTime==null}}">至今</text><text wx:elif="{{project.endTime!=null}}">{{project.endTime}}</text></text>
+<text class='introduction'>简介： {{project.introduction}}</text>
+<text class="duration">工期：<text wx:if="{{project.startTime==null}}">未定</text><text wx:else>{{project.startTime}}</text>--<text wx:if="{{project.endTime==null}}">未定</text><text wx:else>{{project.endTime}}</text></text>
 <!--标题分割线  -->
 <!--发布者 调用后台作者-->
 <text class='writer'>负责人： {{project.leaderName}}</text>
@@ -38,7 +39,7 @@
 <!--内容板块  -->
   <view class="logs" wx:for="{{logList}}" wx:key="index" bindtap="showDetail" id="{{item.logId}}">
     <view class="log">
-      <image wx:if="{{item.pic!='' && item.pic!=null}}" class='headimage' src="{{domain}}/{{item.pic}}" ></image>
+      <image wx:if="{{item.pic!='' && item.pic!=null}}" class='headimage' src="{{item.pic}}" ></image>
       <image wx:else class='headimage' src="../../images/default.jpg" ></image>
       <view class='logtext'>
         <text class='date'>{{item.date}}</text>

@@ -15,7 +15,7 @@
 
   <view class="title">
    <view class='titleSel' bindtap='titleClick' data-idx='0'>
-      <text>发布消息</text>
+      <text>发布日志</text>
       <hr class="{{0 == currentIndex ? 'headerLineSel' : 'headerLineUnsel'}}" />
     </view>
      <view class='titleSel' bindtap='titleClick' data-idx='1'>
@@ -30,10 +30,10 @@
       <!--导航栏  -->
 <view class='navigation'>
   <!--返回按钮  -->
-  <navigator open-type="navigateBack" class="return">返回</navigator>
+  <!-- <navigator open-type="navigateBack" class="return">返回</navigator> -->
   <!--  -->
   <!--发布按钮  -->
-  <text class='publication' bindtap="addLog">发布</text>
+  <button class='publication' bindtap="addLog">发布</button>
 </view>
 
 <view class='heading'>
@@ -77,14 +77,14 @@
       <!--导航栏  -->
 <view class='navigation'>
   <!--返回按钮  -->
-  <navigator open-type="navigateBack" class="return">返回</navigator>
+  <!-- <navigator open-type="navigateBack" class="return">返回</navigator> -->
   <!--  -->
   <!--发布按钮  -->
-  <text class='publication' bindtap="addProject">发布</text>
+  <button class='publication' bindtap="addProject">发布</button>
 </view>
 
 <view class='heading'>
-  <input placeholder-class='textcolor' class="titlelog" placeholder="请输入项目名称" value = "{{projectName}}" bindinput="inputProjectName" confirm-type="done" bindconfirm="checkProjectName"/>
+  <input placeholder-class='textcolor' class="titlelog" placeholder="请输入项目名称" value = "{{projectName}}" bindinput="inputProjectName" confirm-type="done" onblur="checkProjectName" bindconfirm="checkProjectName"/>
   <image class='line1'></image>
   <picker class='title1' mode="date" start="" bindchange="setStartTime">
     选择开工日期 {{startTime}}
@@ -94,7 +94,9 @@
     选择竣工日期 {{endTime}}
   </picker>
   <image class='line1'></image>
-    <text class='leader'> 项目负责人 {{userInfo.nickName}} </text>
+    <text class='leader'> 项目负责人 <text wx:if="{{userName != null || userName !=''}}">{{userName}}</text><text wx:else>{{userInfo.nickName}}</text> </text>
+  <image class='line1'></image>
+    <textarea placeholder-class='textcolor' class='title1' placeholder='项目简介' value="{{introduction}}" bindinput="inputIntroduction"></textarea>
   <image class='line1'></image>
 </view>
 
