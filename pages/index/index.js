@@ -58,7 +58,7 @@ Page({
           var that = this;
           for(var i =0;i<res.data.records.length;i++){
             if (res.data.records[i].img != null && res.data.records[i].img != '')
-              res.data.records[i].img = this.data.domain + '/' + res.data.records[i].img.split(" ")[0]
+              res.data.records[i].img = this.data.domain + '/' + res.data.records[i].img.split(",")[0]
           }
           this.setData({
             projectList: old.concat(res.data.records),

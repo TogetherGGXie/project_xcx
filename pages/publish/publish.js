@@ -14,10 +14,10 @@ Page({
     startTime: "",
     endTime: "",
     authority: 1,
-    userName: '',
     pIndex: 0,
     projectId: '',
     projectName: '',
+    userName: '',
     pics: '',
     index: 0,
     tempFilePaths: [],
@@ -31,8 +31,7 @@ Page({
     // pics: '',
     // index: 0,
     // tempFilePaths: [],
-    content: '',
-    introduction: ''
+    content: ''
   },
   //swiper切换时会调用
   pagechange: function (e) {
@@ -105,14 +104,6 @@ Page({
       content: e.value
     });
   },
-
-  inputIntroduction(ev) {
-    let e = ev.detail;
-    this.setData({
-      introduction: e.value
-    });
-  },
-
   pickProject: function (e) {
     this.setData({
       pIndex: e.detail.value,
@@ -186,7 +177,7 @@ Page({
   //     post();
   //   }
   // },
-  addLog() {
+  async addLog() {
     let that = this;
     that.isValid();
     var tempFilePaths = that.data.tempFilePaths;
@@ -195,9 +186,9 @@ Page({
     console.log(that.data.iscomplete, 111111111111111)
     if (that.data.iscomplete) {
       for (var i = 0; i < tempFilePaths.length; i++) {
-        that.uploadImg(tempFilePaths[i]).then((res) => {
+        await that.uploadImg(tempFilePaths[i]).then((res) => {
           console.log("res=" + res)
-          pics = pics + res + (i == tempFilePaths.length - 1 ? "" : " ") // 图片地址
+          pics = pics + res + (i == tempFilePaths.length - 1 ? "" : ",") // 图片地址
           that.setData({
             pics: pics
           })
@@ -305,6 +296,13 @@ Page({
     let e = ev.detail;
     this.setData({
       projectName: e.value
+    });
+  },
+
+  inputIntroduction(ev) {
+    let e = ev.detail;
+    this.setData({
+      introduction: e.value
     });
   },
 
@@ -416,7 +414,6 @@ Page({
   },
 
   async addProject() {
-    this.checkProjectName();
     let isValid = this.isValid();
     var tempFilePaths = this.data.tempFilePaths;
     var pics = this.data.pics;
@@ -426,7 +423,7 @@ Page({
       for (var i = 0; i < tempFilePaths.length; i++) {
         await this.uploadImg(tempFilePaths[i]).then((res) => {
           console.log("res=" + res)
-          pics = pics + res + (i == tempFilePaths.length - 1 ? "" : " ") // 图片地址
+          pics = pics + res + (i == tempFilePaths.length - 1 ? "" : ",") // 图片地址
           that.setData({
             pics: pics
           })
@@ -513,6 +510,7 @@ Page({
         startTime: this.data.startTime,
         endTime: this.data.endTime,
         projectName: this.data.projectName,
+        introduction:this.data.introduction
 
       },
       success: res => {
@@ -543,7 +541,7 @@ Page({
     let that = this;
     that.setData({
       authority: app.globalData.authority,
-      userName:app.globalData.userName
+      userName: app.globalData.userName
     })
 
   },
