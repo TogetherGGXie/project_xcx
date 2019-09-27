@@ -416,6 +416,7 @@ Page({
   },
 
   async addProject() {
+    this.checkProjectName();
     let isValid = this.isValid();
     var tempFilePaths = this.data.tempFilePaths;
     var pics = this.data.pics;
