@@ -3,8 +3,6 @@
     "pages/auth/auth",
     "pages/index/index",
     "pages/details/details",
-    "pages/projectpublication/projectpublication",
-    "pages/publication/publication",
     "pages/user/user",
     "templates/searchBox/index",
     "pages/logdetails/logdetails",

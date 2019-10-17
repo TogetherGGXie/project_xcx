@@ -25,6 +25,10 @@ Page({
     time: "",
     projectList: [],
     iscomplete: true,
+    userList:[],
+    showModal : false,
+    participant : [],
+    selectedIds : [],
     // pIndex: 0,
     // projectId: '',
     // projectName: '',
@@ -97,6 +101,71 @@ Page({
 
 
   },
+  getUserSelection: function () {
+    wx.request({
+      url: app.globalData.domain + '/wxUser/getUserSelection',
+      data: {
+      },
+      header: {
+        'Cookie': app.globalData.cookie,
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        var arr = res.data.userSelection
+        for(let i=0; i < arr.length; i++) {
+          arr[i].checked = false
+        }
+        this.setData({
+          userList: arr
+        })
+        console.log(this.data.userList)
+        // setData data
+      }
+    })
+  },
+
+  showView: function () {
+    this.setData({
+      showModal: true,
+    })
+  },
+
+  preventTouchMove: function () {
+
+  },
+
+  hideModel: function () {
+    this.setData({
+      showModal: false,
+    })
+  },
+
+  check: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let arrs = this.data.userList;
+    let ids = [];
+    let names = '';
+    if (arrs[index].checked == false) {
+      arrs[index].checked = true;
+    } else {
+      arrs[index].checked = false;
+    }
+    for(let i = 0; i < arrs.length; i++) {
+      if(arrs[i].checked == true) {
+        ids.push(arrs[i].userId);
+        names = names.concat(arrs[i].name+"，");
+      }
+    }
+    names = names.substr(0, names.length-1)
+    this.setData({
+      userList: arrs,
+      selectedIds: ids,
+      participant: names
+    })
+    // console.log(e)
+  },
+
   //搜索框输入时触发
   inputContent(ev) {
     let e = ev.detail;
@@ -510,8 +579,8 @@ Page({
         startTime: this.data.startTime,
         endTime: this.data.endTime,
         projectName: this.data.projectName,
-        introduction:this.data.introduction
-
+        introduction:this.data.introduction,
+        userList:this.data.selectedIds
       },
       success: res => {
         if (res.data.code == 0) {
@@ -534,7 +603,7 @@ Page({
    */
   onLoad: function (options) {
     this.getSelection();
-
+    this.getUserSelection();
     /**
      * 这需要赋值authority,默认值是0
      */

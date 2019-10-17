@@ -96,6 +96,8 @@
   <image class='line1'></image>
     <text class='leader'> 项目负责人 <text wx:if="{{userName != null || userName !=''}}">{{userName}}</text><text wx:else>{{userInfo.nickName}}</text> </text>
   <image class='line1'></image>
+  <text class = "title1" catchtap="showView"> 项目参与人员  <text> {{participant}}</text></text>
+  <image class='line1'></image>
     <textarea placeholder-class='textcolor' class='title1' placeholder='项目简介' value="{{introduction}}" bindinput="inputIntroduction"></textarea>
   <image class='line1'></image>
 </view>
@@ -116,7 +118,7 @@
   </block>
 </view>
 
-    <button type="default" size="mini" bindtap="chooseimg" 
+    <button class="btn"type="default" size="mini" bindtap="chooseimg" 
       wx:if="{{tempFilePaths.length < 3}}"
       >添加图片</button>
 </view>
@@ -124,4 +126,14 @@
 
     </swiper-item>
   </swiper>
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" catchtap="hideModel" wx:if="{{showModal}}"></view>
+
+<view catchtouchmove="preventTouchMove" class="modalDlg" wx:if="{{showModal}}">
+  <checkbox-group name="checkbox" class="check">
+          <label bindtap='check' wx:for="{{userList}}" wx:key="{{userList}}" wx:for-index="index" data-index="{{index}}" class='{{item.checked?"is_checked":""}}'>
+            <checkbox value="{{item.name}}" data-val="{{item.id}}" hidden='false' checked='{{item.checked}}' /> {{item.name}}
+          </label>
+  </checkbox-group>
 </view>

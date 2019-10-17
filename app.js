@@ -8,7 +8,7 @@ let app = {
     hasUserInfo: !!wx.getStorageSync(USERINFOKEY), //是否获取用户信息成功标志
     userInfo: wx.getStorageSync(USERINFOKEY), //用户信息
     // domain:"http://localhost:8088",
-    domain:"http://49.235.215.80:8088",
+    domain:"https://server.togethergg.cn",
     cookie:'',
     authority:'',
     userName:'',
@@ -42,11 +42,34 @@ let app = {
           success: function (res) {
             // var openid = res.data.openid //返回openid
             // console.log('openid为' + openid);
-            console.log(res.data)
-            that.globalData.cookie = "JSESSIONID="+res.data.sessionId
-            that.globalData.authority = res.data.authority
-            that.globalData.userName = res.data.userName
-            that.globalData.organization = res.data.organization
+            if (res.data.code != 0) {
+              wx.showToast({
+                title: 'msg',
+              })
+            } else {
+              that.globalData.cookie = "JSESSIONID=" + res.data.sessionId
+              that.globalData.authority = res.data.authority
+              that.globalData.userName = res.data.userName
+              that.globalData.organization = res.data.organization
+              if (that.globalData.authority == '' || that.globalData.userName == '' || that.globalData.organization == '') {
+                wx.showToast({
+                  title: '请先完善个人信息！',
+                  duration: 1000,
+                  success(data) {
+                    setTimeout(function () {
+                      //要延时执行的代码
+                      wx.reLaunch({
+                        url: "/pages/user/user",
+                      })
+                    }, 1000) //延迟时间
+                  }
+                })
+              } else {
+                wx.reLaunch({
+                  url: "/pages/index/index",
+                })
+              }
+            }
           }
         })
       }
@@ -58,9 +81,9 @@ let app = {
     let userinfo = wx.getStorageSync(USERINFOKEY)
     if (!userinfo) {
       wx.setStorageSync(USERINFOKEY, e.detail.userInfo)
-      wx.reLaunch({
-        url: '/pages/index/index'
-      })
+        wx.reLaunch({
+          url: '/pages/index/index'
+        })
     } else {
       wx.reLaunch({
         url: '/pages/auth/auth'
