@@ -113,12 +113,14 @@ Page({
       success: res => {
         console.log(res.data)
         var arr = res.data.userSelection
-        for(let i=0; i < arr.length; i++) {
-          arr[i].checked = false
+        if (arr != null) {
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].checked = false
+          }
+          this.setData({
+            userList: arr
+          })
         }
-        this.setData({
-          userList: arr
-        })
         console.log(this.data.userList)
         // setData data
       }

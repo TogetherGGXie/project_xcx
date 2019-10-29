@@ -24,6 +24,7 @@ Page({
   onLoad: function () {
     this.setData({
       userInfo: app.getUserinfo(),
+      hasUserInfo: app.getUserinfo() == '' || app.getUserinfo() == null ? false : true,
       domain: app.globalData.domain,
       searchText: '',
       pageNumber: 1,
@@ -32,7 +33,14 @@ Page({
       pages: 0,
       authority:app.globalData.authority
     });
-    this.getProjects();
+    if(this.data.hasUserInfo) {
+      this.getProjects();
+    }else {
+      this.setData({
+        isEnd : true
+      })
+    }
+
   },
   getProjects: function() {
     wx.request({
@@ -52,6 +60,9 @@ Page({
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
+          })
+          this.setData({
+            isEnd: true
           })
         } else {
           var old = this.data.projectList;

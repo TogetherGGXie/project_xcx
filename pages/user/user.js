@@ -6,7 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: wx.getStorageSync(app.globalData.userInfoKey),
+    hasUserInfo: app.globalData.hasUserInfo,
     isDisabled: true,
     userName:'',
     tmpName:'',
@@ -34,19 +36,26 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      userInfo: app.globalData.userInfo,
+      hasUserInfo: app.getUserinfo() == null || app.getUserinfo() == '' ? false : true,
+      userInfo: app.getUserinfo(),
       domain: app.globalData.domain,
-      userName: app.globalData.userName,
-      authority: app.globalData.authority,
-      organization: app.globalData.organization,
-      tmpAuthority: app.globalData.authority,
+      // userName: app.globalData.userName,
+      // authority: app.globalData.authority,
+      // organization: app.globalData.organization,
+      tmpAuthority: 0,
     })
-    this.getUserInfo();
-    this.getOrganization();
+    if(this.data.hasUserInfo) {
+      this.getUserInfo();
+      this.getOrganization();
+    }
+
     // this.getDepartment();
     // this.cancle()
   },
 
+  bindGetUserInfo: function (e) {
+    app.setUserinfo(e)
+  },
   getUserInfo : function() {
     wx.request({
       url: this.data.domain + '/wxUser/getUserInfo',

@@ -4,7 +4,14 @@
   <image class='bg' src='/images/bg.png'></image>
 
   <view class='head'>
-    <image class='headphoto' src='{{userInfo.avatarUrl}}'></image>
+    <block wx:if = "{{hasUserInfo}}">
+      <image class='headphoto' src='{{userInfo.avatarUrl}}'></image>
+    </block>
+    <block wx:else >
+      <image class='headphoto' src='/images/avatar.png'></image>
+      <button class='login' wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">点击授权登陆</button>
+      <view class ='login' wx:else >请升级微信</view> 
+    </block>
   </view>
 </view>
 
